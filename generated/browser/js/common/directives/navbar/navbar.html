@@ -1,0 +1,12 @@
+<nav class="navbar navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <fullstack-logo></fullstack-logo>
+        </div>
+        <ul class="nav navbar-nav">
+            <li ng-repeat="item in items">
+                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+            </li>
+        </ul>
+    </div>
+</nav>

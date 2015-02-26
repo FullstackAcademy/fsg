@@ -1,0 +1,113 @@
+(function () {
+
+    'use strict';
+
+    if (!window.angular) throw new Error('I can\'t find Angular!');
+
+    var app = angular.module('fsaPreBuilt', []);
+
+    app.factory('Socket', function ($location) {
+
+        var formUrl = function (l) {
+            return l.$$protocol + '://' + l.$$host + ':' + l.$$port;
+        };
+
+        if (!window.io) throw new Error('socket.io not found!');
+
+        var socket;
+
+        if ($location.$$port !== 80) {
+            socket = io(formUrl($location));
+        } else {
+            socket = io('/');
+        }
+
+        return socket;
+
+    });
+
+    app.constant('AUTH_EVENTS', {
+        loginSuccess: 'auth-login-success',
+        loginFailed: 'auth-login-failed',
+        logoutSuccess: 'auth-logout-success',
+        sessionTimeout: 'auth-session-timeout',
+        notAuthenticated: 'auth-not-authenticated',
+        notAuthorized: 'auth-not-authorized'
+    });
+
+    app.config(function ($httpProvider) {
+        $httpProvider.interceptors.push([
+            '$injector',
+            function ($injector) {
+                return $injector.get('AuthInterceptor');
+            }
+        ]);
+    });
+
+    app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
+        return {
+            responseError: function (response) {
+                $rootScope.$broadcast({
+                    401: AUTH_EVENTS.notAuthenticated,
+                    403: AUTH_EVENTS.notAuthorized,
+                    419: AUTH_EVENTS.sessionTimeout,
+                    440: AUTH_EVENTS.sessionTimeout
+                }[response.status], response);
+                return $q.reject(response);
+            }
+        };
+    });
+
+    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+
+        var successfulLogin = function (response) {
+            var data = response.data;
+            Session.create(data.id, data.user);
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            return data.user;
+        };
+
+        this.getLoggedInUser = function () {
+
+            if (this.isAuthenticated()) {
+                return $q.when({ user: Session.user });
+            }
+
+            return $http.get('/session').then(successfulLogin).catch(function () {
+                return null;
+            });
+
+        };
+
+        this.login = function (credentials) {
+            return $http.post('/login', credentials).then(successfulLogin);
+        };
+
+        this.logout = function () {
+            return $http.get('/logout').then(function () {
+                Session.destroy();
+                $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+            });
+        };
+
+        this.isAuthenticated = function () {
+            return !!Session.user;
+        };
+
+    });
+
+    app.service('Session', function () {
+
+        this.create = function (sessionId, user) {
+            this.id = sessionId;
+            this.user = user;
+        };
+
+        this.destroy = function () {
+            this.id = null;
+            this.user = null;
+        };
+
+    });
+
+})();
