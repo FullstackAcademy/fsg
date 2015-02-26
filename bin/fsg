@@ -1,2 +1,15 @@
 #!/usr/bin/env node
 
+var ncp = require('ncp').ncp;
+
+ncp.limit = 16;
+
+var newProjectDir = process.cwd();
+var generatorFilesPath = path.join(__dirname, '../generated');
+
+console.log('Generating your poppin\' fresh new application!');
+
+ncp(generatorFilesPath, newProjectDir, function (err) {
+    if (err) return console.error(err);
+    console.log('All done!');
+});

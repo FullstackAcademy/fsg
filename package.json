@@ -4,5 +4,8 @@
   "description": "Fullstack, generate!",
   "bin": {
     "fsg": "bin/fsg"
+  },
+  "dependencies": {
+    "ncp": "^2.0.0"
   }
 }
