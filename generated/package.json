@@ -1,5 +1,5 @@
 {
-  "name": "fsg",
+  "name": "FullstackGeneratedApp",
   "version": "1.0.0",
   "description": "Scaffolding for projects at Fullstack Academy",
   "main": "server/start.js",

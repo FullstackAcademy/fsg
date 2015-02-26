@@ -15,16 +15,11 @@ require('./io')(server);   // Attach socket.io.
 
 var startServer = function () {
 
-    var User = mongoose.model('User');
+    var PORT = process.env.PORT || 1337;
 
-    User.create({ email: 'joedotjs@gmail.com', password: 'testing' }).then(function () {
-        var PORT = process.env.PORT || 1337;
-
-        server.listen(PORT, function () {
-            console.log(chalk.blue('Server started on port', chalk.magenta(PORT)));
-        });
+    server.listen(PORT, function () {
+        console.log(chalk.blue('Server started on port', chalk.magenta(PORT)));
     });
-
 
 };
 

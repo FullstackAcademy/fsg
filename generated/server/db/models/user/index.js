@@ -20,6 +20,9 @@ var schema = new mongoose.Schema({
     },
     facebook: {
         id: String
+    },
+    google: {
+        id: String
     }
 });
 

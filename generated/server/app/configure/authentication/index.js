@@ -8,8 +8,9 @@ var UserModel = mongoose.model('User');
 
 var authStrategies = [
     'local',
-    'twitter',
-    'facebook'
+    //'twitter',
+    //'facebook',
+    //'google'
 ];
 
 module.exports = function (app) {

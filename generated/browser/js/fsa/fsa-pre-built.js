@@ -16,7 +16,7 @@
 
         var socket;
 
-        if ($location.$$port !== 80) {
+        if ($location.$$port) {
             socket = io(formUrl($location));
         } else {
             socket = io('/');
@@ -45,14 +45,15 @@
     });
 
     app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
+        var statusDict = {
+            401: AUTH_EVENTS.notAuthenticated,
+            403: AUTH_EVENTS.notAuthorized,
+            419: AUTH_EVENTS.sessionTimeout,
+            440: AUTH_EVENTS.sessionTimeout
+        };
         return {
             responseError: function (response) {
-                $rootScope.$broadcast({
-                    401: AUTH_EVENTS.notAuthenticated,
-                    403: AUTH_EVENTS.notAuthorized,
-                    419: AUTH_EVENTS.sessionTimeout,
-                    440: AUTH_EVENTS.sessionTimeout
-                }[response.status], response);
+                $rootScope.$broadcast(statusDict[response.status], response);
                 return $q.reject(response);
             }
         };
@@ -60,7 +61,7 @@
 
     app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
 
-        var successfulLogin = function (response) {
+        var onSuccessfulLogin = function (response) {
             var data = response.data;
             Session.create(data.id, data.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
@@ -73,14 +74,14 @@
                 return $q.when({ user: Session.user });
             }
 
-            return $http.get('/session').then(successfulLogin).catch(function () {
+            return $http.get('/session').then(onSuccessfulLogin).catch(function () {
                 return null;
             });
 
         };
 
         this.login = function (credentials) {
-            return $http.post('/login', credentials).then(successfulLogin);
+            return $http.post('/login', credentials).then(onSuccessfulLogin);
         };
 
         this.logout = function () {

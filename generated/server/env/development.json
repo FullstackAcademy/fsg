@@ -21,6 +21,13 @@
         "clientSecret": "2f117d2a289fd321e411fdb568d263f2",
         "callbackURL": "http://localhost:1337/auth/facebook/callback"
       }
+    },
+    "google": {
+      "credentials": {
+        "clientID": "369003002521-88250fc9kjpkfqvhicu7vokbnvu88ud6.apps.googleusercontent.com",
+        "clientSecret": "DB1-q81E4ODEuL8cFGCm5QS1",
+        "callbackURL": "http://localhost:1337/auth/google/callback"
+      }
     }
   }
 }

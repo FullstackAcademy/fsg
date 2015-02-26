@@ -1,11 +1,12 @@
 {
   "name": "fsg",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Fullstack, generate!",
   "bin": {
     "fsg": "bin/fsg"
   },
   "dependencies": {
+    "chalk": "^1.0.0",
     "ncp": "^2.0.0"
   }
 }
