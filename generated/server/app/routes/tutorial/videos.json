@@ -56,6 +56,12 @@
       "order": 3
     },
     {
+      "name": "Using the Authentication Service",
+      "youtubeID": "90U1UFalT3g",
+      "section": "Front End",
+      "order": 4
+    },
+    {
       "name": "Basic Introduction",
       "youtubeID": "90U1UFalT3g",
       "section": "Build Process (Gulp)",

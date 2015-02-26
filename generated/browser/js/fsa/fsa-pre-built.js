@@ -88,7 +88,10 @@
 
     });
 
-    app.service('Session', function () {
+    app.service('Session', function ($rootScope, AUTH_EVENTS) {
+
+        $rootScope.$on(AUTH_EVENTS.notAuthenticated, this.destroy);
+        $rootScope.$on(AUTH_EVENTS.sessionTimeout, this.destroy);
 
         this.create = function (sessionId, user) {
             this.id = sessionId;

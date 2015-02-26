@@ -4,7 +4,7 @@ var app = express();
 module.exports = app;
 require('./configure')(app);
 
-app.use('/api', require('./router'));
+app.use('/api', require('./routes'));
 
 app.get('/*', function (req, res) {
 
