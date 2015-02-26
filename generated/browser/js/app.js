@@ -1,6 +1,4 @@
 'use strict';
-
-// TODO: This seems like something that can "generated".
 var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt']);
 
 app.controller('MainController', function ($scope) {
@@ -13,6 +11,7 @@ app.controller('MainController', function ($scope) {
     ];
 
 });
+
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)

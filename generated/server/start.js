@@ -1,17 +1,19 @@
 'use strict';
 var chalk = require('chalk');
-var path = require('path');
-var mongoose = require('mongoose');
 
-// Server instance.
+// Create a node server instance! cOoL!
 var server = require('http').createServer();
 
+// Requires in ./db/index.js -- which returns a promise that represents
+// mongoose establishing a connection to a MongoDB database.
 var startDb = require('./db');
 
-// Express application.
-var app = require(path.join(__dirname, './app'));
-server.on('request', app); // Attach the Express application.
-require('./io')(server);   // Attach socket.io.
+var createApplication = function () {
+    var app = require('./app');
+    server.on('request', app); // Attach the Express application.
+    require('./io')(server);   // Attach socket.io.
+    return true;
+};
 
 var startServer = function () {
 
@@ -23,8 +25,8 @@ var startServer = function () {
 
 };
 
-startDb.then(startServer).catch(function (err) {
-    console.error('Server initialization error:', chalk.red(err.message));
+startDb.then(createApplication).then(startServer).catch(function (err) {
+    console.error('Initialization error:', chalk.red(err.message));
 });
 
 

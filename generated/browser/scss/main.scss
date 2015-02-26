@@ -2,10 +2,15 @@
   box-sizing: border-box;
 }
 
-html, body {
-  background: white;
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
 
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
+@import 'tutorial/main';

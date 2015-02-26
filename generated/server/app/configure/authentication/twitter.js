@@ -29,7 +29,7 @@ module.exports = function (app) {
 
     };
 
-    var updateUserCreds = function (user, token, tokenSecret, profile) {
+    var updateUserCredentials = function (user, token, tokenSecret, profile) {
 
         user.twitter.token = token;
         user.twitter.tokenSecret = tokenSecret;
@@ -37,9 +37,7 @@ module.exports = function (app) {
 
         return new Q(function (resolve, reject) {
             user.save(function (err) {
-                if (err) {
-                    return reject(err);
-                }
+                if (err) return reject(err);
                 resolve(user);
             });
         });
@@ -51,11 +49,11 @@ module.exports = function (app) {
 
             if (err) return done(err);
 
-            if (user) {
-                updateUserCreds(user, token, tokenSecret, profile).then(function () {
+            if (user) { // If a user with this twitter id already exists.
+                updateUserCredentials(user, token, tokenSecret, profile).then(function () {
                     done(null, user);
                 });
-            } else {
+            } else { // If this twitter id has never been seen before and no user is attached.
                 createNewUser(token, tokenSecret, profile).then(function (createdUser) {
                     done(null, createdUser);
                 });

@@ -12,10 +12,11 @@ app.get('/*', function (req, res) {
         return res.status(404).send('You are probably looking for something that starts with /api.');
     }
 
-    res.sendFile(app.get('homePagePath'));
+    res.sendFile(app.get('indexHTMLPath'));
 
 });
 
+// Error catching endware.
 app.use(function (err, req, res, next) {
     res.status(err.status).send({ error: err.message });
 });

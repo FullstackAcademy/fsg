@@ -17,6 +17,7 @@
   "globals" : {
     "angular" : true,
     "app": true,
-    "io": true
+    "io": true,
+    "_": true
   }
 }

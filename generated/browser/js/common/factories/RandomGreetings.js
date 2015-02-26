@@ -11,8 +11,7 @@ app.factory('RandomGreetings', function () {
         'Hello, simple human.',
         'What a beautiful day!',
         'I\'m like any other project, except that I am yours. :)',
-        'This empty string is for Lindsay Levine.',
-        'My main quality over the last generator is that I\'m not complete garbage.'
+        'This empty string is for Lindsay Levine.'
     ];
 
     return {

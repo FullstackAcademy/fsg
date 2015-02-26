@@ -1,0 +1,21 @@
+tutorial-section-menu {
+
+  display: block;
+  @include clearfix;
+
+  ul {
+    margin-left: 23px;
+    list-style-type: none;
+    font-weight: 300;
+    li {
+      float: left;
+      margin-right: 40px;
+      padding: 10px;
+      cursor: pointer;
+      &:hover {
+        background: lighten(gray, 45%);
+      }
+    }
+  }
+
+}
