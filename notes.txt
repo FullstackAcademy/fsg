@@ -1,0 +1,3 @@
+For full Heroku deploy:
+
+git init
