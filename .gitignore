@@ -1,6 +1,7 @@
 .idea
 generated/node_modules
 generated/bower_components
+generated/public
 node_modules
 bower_components
 npm-debug.log

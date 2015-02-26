@@ -13,6 +13,5 @@ ncp(generatorFilesPath, newProjectDir, function (err) {
     if (err) return console.error(err);
     console.log(chalk.blue('All done!'));
     console.log(chalk.red('Don\'t forget to npm install!'));
-    console.log(chalk.red('Don\'t forget to bower install!'));
-    console.log(chalk.yellow('Try out npm start!'));
+    console.log(chalk.yellow('Afterwards, try out npm start!'));
 });
