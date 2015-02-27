@@ -9,6 +9,7 @@ git init
 heroku create
 
 heroku config:set NODE_ENV=production
+heroku config:set SESSION_SECRET=anything
 
 heroku addons:add mongolab
 update production.json
