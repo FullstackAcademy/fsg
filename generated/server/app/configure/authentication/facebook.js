@@ -7,12 +7,12 @@ var UserModel = mongoose.model('User');
 
 module.exports = function (app) {
 
-    var facebookConfig = app.get('env').auth.facebook;
+    var facebookConfig = app.getValue('env').FACEBOOK;
 
     var facebookCredentials = {
-        clientID: facebookConfig.credentials.clientID,
-        clientSecret: facebookConfig.credentials.clientSecret,
-        callbackURL: facebookConfig.credentials.callbackURL
+        clientID: facebookConfig.clientID,
+        clientSecret: facebookConfig.clientSecret,
+        callbackURL: facebookConfig.callbackURL
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {

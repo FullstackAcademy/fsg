@@ -1,3 +1,20 @@
 For full Heroku deploy:
 
+make sure heroku login
+
+fsg
+npm install
 git init
+
+heroku create
+
+heroku config:set NODE_ENV=production
+
+heroku addons:add mongolab
+update production.json
+
+git push heroku master
+
+heroku ps:scale web=1
+
+heroku open

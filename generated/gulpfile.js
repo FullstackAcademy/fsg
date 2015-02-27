@@ -80,3 +80,24 @@ gulp.task('buildJSProduction', function () {
 gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 
 // --------------------------------------------------------------
+
+// Build tasks
+// --------------------------------------------------------------
+
+gulp.task('build', function () {
+    if (process.env.NODE_ENV === 'production') {
+        gulp.start.apply(gulp, ['buildJSProduction']);
+        gulp.start.apply(gulp, ['buildCSSProduction']);
+    } else {
+        gulp.start.apply(gulp, ['buildJS']);
+        gulp.start.apply(gulp, ['buildCSS']);
+    }
+});
+
+gulp.task('default', function () {
+    livereload.listen();
+    gulp.watch('./server/**/*.js', ['lintJS']);
+    gulp.watch('./browser/js/**', ['lintJS', 'buildJS', 'reload']);
+    gulp.watch('./browser/scss/**', ['buildCSS', 'reloadCSS']);
+    gulp.watch(['./browser/**/*.html', './server/app/views/*.html'], ['reload']);
+});

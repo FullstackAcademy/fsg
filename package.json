@@ -6,6 +6,7 @@
     "fsg": "bin/fsg"
   },
   "dependencies": {
+    "bluebird": "^2.9.13",
     "chalk": "^1.0.0",
     "ncp": "^2.0.0"
   }

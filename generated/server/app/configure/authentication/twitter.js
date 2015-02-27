@@ -8,12 +8,12 @@ var UserModel = mongoose.model('User');
 
 module.exports = function (app) {
 
-    var twitterConfig = app.get('env').auth.twitter;
+    var twitterConfig = app.getValue('env').TWITTER;
 
     var twitterCredentials = {
-        consumerKey: twitterConfig.credentials.consumerKey,
-        consumerSecret: twitterConfig.credentials.consumerSecret,
-        callbackUrl: twitterConfig.credentials.callbackUrl
+        consumerKey: twitterConfig.consumerKey,
+        consumerSecret: twitterConfig.consumerSecret,
+        callbackUrl: twitterConfig.callbackUrl
     };
 
     var createNewUser = function (token, tokenSecret, profile) {

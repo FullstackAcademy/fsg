@@ -5,7 +5,7 @@
   "main": "server/start.js",
   "scripts": {
     "start": "node server/start.js",
-    "postinstall": "./node_modules/bower/bin/bower install && gulp buildProduction"
+    "postinstall": "./node_modules/bower/bin/bower install && gulp build"
   },
   "dependencies": {
     "body-parser": "^1.12.0",

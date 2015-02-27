@@ -7,17 +7,15 @@ var UserModel = mongoose.model('User');
 
 module.exports = function (app) {
 
-    var googleConfig = app.get('env').auth.google;
+    var googleConfig = app.getValue('env').GOOGLE;
 
     var googleCredentials = {
-        clientID: googleConfig.credentials.clientID,
-        clientSecret: googleConfig.credentials.clientSecret,
-        callbackURL: googleConfig.credentials.callbackURL
+        clientID: googleConfig.clientID,
+        clientSecret: googleConfig.clientSecret,
+        callbackURL: googleConfig.callbackURL
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
-        console.log(profile);
 
         UserModel.findOne({ 'google.id': profile.id }, function (err, user) {
 

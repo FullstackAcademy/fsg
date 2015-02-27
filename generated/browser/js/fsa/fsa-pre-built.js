@@ -11,7 +11,13 @@
 
         if (!window.io) throw new Error('socket.io not found!');
 
-        var socket = io('http://localhost:1337');
+        var socket;
+
+        if ($location.$$port) {
+            socket = io('http://localhost:1337');
+        } else {
+            socket = io('/');
+        }
 
         return socket;
 

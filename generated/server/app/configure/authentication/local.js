@@ -38,7 +38,7 @@ module.exports = function (app) {
             req.logIn(user, function (err) {
                 if (err) return next(err);
                 // We respond with a reponse object that has user with _id and email.
-                res.status(200).send({ user: _.pick(user, ['_id', 'email']) });
+                res.status(200).send({ user: _.omit(user.toJSON(), ['password', 'salt']) });
             });
 
         };
@@ -49,7 +49,7 @@ module.exports = function (app) {
 
     // app.get('isAuthenticated') can be used as middleware across your application
     // to control access to specific routes.
-    app.set('isAuthenticated', function (req, res, next) {
+    app.setValue('isAuthenticated', function (req, res, next) {
         if (req.user) {
             next(null);
         } else {

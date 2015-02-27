@@ -1,17 +1,34 @@
+var bluebird = require('bluebird');
 var path = require('path');
 var chalk = require('chalk');
-var ncp = require('ncp').ncp;
+var ncp = bluebird.promisify(require('ncp').ncp);
+var rename = bluebird.promisify(require('fs').rename);
 
 ncp.limit = 16;
 
 var newProjectDir = process.cwd();
 var generatorFilesPath = path.join(__dirname, '../generated');
 
-console.log(chalk.blue('Generating your poppin\' fresh new application!'));
 
-ncp(generatorFilesPath, newProjectDir, function (err) {
-    if (err) return console.error(err);
+var copyFiles = function () {
+    return ncp(generatorFilesPath, newProjectDir);
+};
+
+var renameGitignore = function () {
+
+    var oldPath = path.join(newProjectDir, 'gitignore.txt');
+    var newPath = path.join(newProjectDir, '.gitignore');
+
+    return rename(oldPath, newPath);
+
+};
+
+console.log(chalk.green('Generating your new, poppin\' fresh application!'));
+copyFiles().then(renameGitignore).then(function () {
     console.log(chalk.blue('All done!'));
-    console.log(chalk.red('Don\'t forget to npm install!'));
-    console.log(chalk.yellow('Afterwards, try out npm start!'));
+    console.log(chalk.red('Do not forget to'), chalk.yellow('npm install'), chalk.blue('bower install'), chalk.green('gulp buildJS && gulp buildCSS'));
 });
+
+
+
+
