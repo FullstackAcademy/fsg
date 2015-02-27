@@ -15,12 +15,9 @@ var copyFiles = function () {
 };
 
 var renameGitignore = function () {
-
     var oldPath = path.join(newProjectDir, 'gitignore.txt');
     var newPath = path.join(newProjectDir, '.gitignore');
-
     return rename(oldPath, newPath);
-
 };
 
 console.log(chalk.green('Generating your new, poppin\' fresh application!'));
