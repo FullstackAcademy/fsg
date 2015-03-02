@@ -12,6 +12,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var jshint = require('gulp-jshint');
+var mocha = require('gulp-mocha');
 
 // Development tasks
 // --------------------------------------------------------------
@@ -40,20 +41,17 @@ gulp.task('buildJS', function () {
         .pipe(gulp.dest('./public'));
 });
 
+gulp.task('testServerJS', function () {
+    return gulp.src('./tests/server/**/*.js', { read: false })
+        .pipe(mocha({ reporter: 'nyan' }));
+});
+
 gulp.task('buildCSS', function () {
     return gulp.src('./browser/scss/main.scss')
         .pipe(plumber())
         .pipe(sass())
         .pipe(rename('style.css'))
         .pipe(gulp.dest('./public'))
-});
-
-gulp.task('default', function () {
-    livereload.listen();
-    gulp.watch('./server/**/*.js', ['lintJS']);
-    gulp.watch('./browser/js/**', ['lintJS', 'buildJS', 'reload']);
-    gulp.watch('./browser/scss/**', ['buildCSS', 'reloadCSS']);
-    gulp.watch(['./browser/**/*.html', './server/app/views/*.html'], ['reload']);
 });
 
 // --------------------------------------------------------------
@@ -96,6 +94,7 @@ gulp.task('build', function () {
 
 gulp.task('default', function () {
     livereload.listen();
+    gulp.watch(['./tests/server/**/*.js', './server/**/*.js'], ['testServerJS']);
     gulp.watch('./server/**/*.js', ['lintJS']);
     gulp.watch('./browser/js/**', ['lintJS', 'buildJS', 'reload']);
     gulp.watch('./browser/scss/**', ['buildCSS', 'reloadCSS']);
