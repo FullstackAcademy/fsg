@@ -10,6 +10,7 @@ module.exports = function (config) {
         'bower_components/angular-ui-router/release/angular-ui-router.js',
         'bower_components/socket.io-client/socket.io.js',
         'public/main.js',
+        'bower_components/angular-mocks/angular-mocks.js',
         'tests/browser/**/*.js'
     ];
 
@@ -19,7 +20,7 @@ module.exports = function (config) {
 
     var configObj = {
         browsers: ['Chrome'],
-        frameworks: ['mocha'],
+        frameworks: ['mocha', 'chai'],
         basePath: path.join(__dirname, '../../'),
         files: filesCollection,
         exclude: excludeFiles
