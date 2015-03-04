@@ -2,6 +2,7 @@
 
 // All used modules.
 var gulp = require('gulp');
+var runSeq = require('run-sequence');
 var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
@@ -13,6 +14,7 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
+var karma = require('karma').server;
 
 // Development tasks
 // --------------------------------------------------------------
@@ -23,7 +25,7 @@ gulp.task('reload', function () {
 });
 
 gulp.task('reloadCSS', function () {
-    gulp.src('./public/style.css').pipe(livereload());
+    return gulp.src('./public/style.css').pipe(livereload());
 });
 
 gulp.task('lintJS', function () {
@@ -44,6 +46,13 @@ gulp.task('buildJS', function () {
 gulp.task('testServerJS', function () {
     return gulp.src('./tests/server/**/*.js', { read: false })
         .pipe(mocha({ reporter: 'spec' }));
+});
+
+gulp.task('testBrowserJS', function (done) {
+   karma.start({
+       configFile: __dirname + '/tests/browser/karma.conf.js',
+       singleRun: true
+   }, done);
 });
 
 gulp.task('buildCSS', function () {
@@ -79,25 +88,33 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 
 // --------------------------------------------------------------
 
-// Build tasks
+// Composed tasks
 // --------------------------------------------------------------
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        gulp.start('buildJSProduction');
-        gulp.start('buildCSSProduction');
+        runSeq(['buildJSProduction', 'buildCSSProduction']);
     } else {
-        gulp.start('buildJS');
-        gulp.start('buildCSS');
+        runSeq(['buildJS', 'buildCSS']);
     }
 });
 
 gulp.task('default', function () {
+
     livereload.listen();
     gulp.start('build');
-    gulp.watch(['./tests/server/**/*.js', './server/**/*.js'], ['testServerJS']);
-    gulp.watch('./server/**/*.js', ['lintJS']);
-    gulp.watch('./browser/js/**', ['lintJS', 'buildJS', 'reload']);
-    gulp.watch('./browser/scss/**', ['buildCSS', 'reloadCSS']);
-    gulp.watch(['./browser/**/*.html', './server/app/views/*.html'], ['reload']);
+
+    gulp.watch('browser/js/**', function () {
+        runSeq('lintJS', 'buildJS', ['testBrowserJS', 'reload']);
+    });
+
+    gulp.watch('browser/scss/**', function () {
+        runSeq('buildCSS', 'reloadCSS');
+    });
+
+    gulp.watch('server/**/*.js', ['lintJS']);
+    gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);
+    gulp.watch(['tests/server/**/*.js', 'server/**/*.js'], ['testServerJS']);
+    gulp.watch('tests/browser/**/*', ['testBrowserJS']);
+
 });
