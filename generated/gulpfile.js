@@ -43,7 +43,7 @@ gulp.task('buildJS', function () {
 
 gulp.task('testServerJS', function () {
     return gulp.src('./tests/server/**/*.js', { read: false })
-        .pipe(mocha({ reporter: 'nyan' }));
+        .pipe(mocha({ reporter: 'spec' }));
 });
 
 gulp.task('buildCSS', function () {
