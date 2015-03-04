@@ -84,16 +84,17 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        gulp.start.apply(gulp, ['buildJSProduction']);
-        gulp.start.apply(gulp, ['buildCSSProduction']);
+        gulp.start('buildJSProduction');
+        gulp.start('buildCSSProduction');
     } else {
-        gulp.start.apply(gulp, ['buildJS']);
-        gulp.start.apply(gulp, ['buildCSS']);
+        gulp.start('buildJS');
+        gulp.start('buildCSS');
     }
 });
 
 gulp.task('default', function () {
     livereload.listen();
+    gulp.start('build');
     gulp.watch(['./tests/server/**/*.js', './server/**/*.js'], ['testServerJS']);
     gulp.watch('./server/**/*.js', ['lintJS']);
     gulp.watch('./browser/js/**', ['lintJS', 'buildJS', 'reload']);
