@@ -23,6 +23,9 @@
 
     });
 
+    // AUTH_EVENTS is used throughout our app to
+    // broadcast and listen from and to the $rootScope
+    // for important events about authentication flow.
     app.constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
         loginFailed: 'auth-login-failed',
@@ -30,15 +33,6 @@
         sessionTimeout: 'auth-session-timeout',
         notAuthenticated: 'auth-not-authenticated',
         notAuthorized: 'auth-not-authorized'
-    });
-
-    app.config(function ($httpProvider) {
-        $httpProvider.interceptors.push([
-            '$injector',
-            function ($injector) {
-                return $injector.get('AuthInterceptor');
-            }
-        ]);
     });
 
     app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
@@ -56,21 +50,36 @@
         };
     });
 
+    app.config(function ($httpProvider) {
+        $httpProvider.interceptors.push([
+            '$injector',
+            function ($injector) {
+                return $injector.get('AuthInterceptor');
+            }
+        ]);
+    });
+
     app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
 
-        var onSuccessfulLogin = function (response) {
-            var data = response.data;
-            Session.create(data.id, data.user);
-            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            return data.user;
+        // Uses the session factory to see if an
+        // authenticated user is currently registered.
+        this.isAuthenticated = function () {
+            return !!Session.user;
         };
 
         this.getLoggedInUser = function () {
 
+            // If an authenticated session exists, we
+            // return the user attached to that session
+            // with a promise. This ensures that we can
+            // always interface with this method asynchronously.
             if (this.isAuthenticated()) {
                 return $q.when(Session.user);
             }
 
+            // Make request GET /session.
+            // If it returns a user, call onSuccessfulLogin with the response.
+            // If it returns a 401 response, we catch it and instead resolve to null.
             return $http.get('/session').then(onSuccessfulLogin).catch(function () {
                 return null;
             });
@@ -88,9 +97,12 @@
             });
         };
 
-        this.isAuthenticated = function () {
-            return !!Session.user;
-        };
+        function onSuccessfulLogin(response) {
+            var data = response.data;
+            Session.create(data.id, data.user);
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            return data.user;
+        }
 
     });
 
