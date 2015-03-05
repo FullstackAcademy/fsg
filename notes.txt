@@ -1,21 +1,18 @@
 For full Heroku deploy:
 
-make sure heroku login
-
-fsg
-npm install
-git init
-
 heroku create
 
+Required:
 heroku config:set NODE_ENV=production
 heroku config:set SESSION_SECRET=anything
 
+Optional if using third-party auth:
+heroku config:set FACEBOOK_CLIENTID=whatever
+etc.
+
 heroku addons:add mongolab
-update production.json
 
 git push heroku master
 
 heroku ps:scale web=1
-
 heroku open
