@@ -47,16 +47,4 @@ module.exports = function (app) {
 
     });
 
-    // app.get('isAuthenticated') can be used as middleware across your application
-    // to control access to specific routes.
-    app.setValue('isAuthenticated', function (req, res, next) {
-        if (req.user) {
-            next(null);
-        } else {
-            var err = new Error('Request is not authorized.');
-            err.status = 401;
-            next(err);
-        }
-    });
-
 };
