@@ -87,7 +87,11 @@
         };
 
         this.login = function (credentials) {
-            return $http.post('/login', credentials).then(onSuccessfulLogin);
+            return $http.post('/login', credentials)
+                .then(onSuccessfulLogin)
+                .catch(function (response) {
+                    return $q.reject({ message: 'Invalid login credentials.' });
+                });
         };
 
         this.logout = function () {
@@ -108,8 +112,18 @@
 
     app.service('Session', function ($rootScope, AUTH_EVENTS) {
 
-        $rootScope.$on(AUTH_EVENTS.notAuthenticated, this.destroy);
-        $rootScope.$on(AUTH_EVENTS.sessionTimeout, this.destroy);
+        var self = this;
+
+        $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
+            self.destroy();
+        });
+
+        $rootScope.$on(AUTH_EVENTS.sessionTimeout, function () {
+            self.destroy();
+        });
+
+        this.id = null;
+        this.user = null;
 
         this.create = function (sessionId, user) {
             this.id = sessionId;

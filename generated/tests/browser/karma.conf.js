@@ -10,6 +10,7 @@ module.exports = function (config) {
         'bower_components/angular-ui-router/release/angular-ui-router.js',
         'bower_components/socket.io-client/socket.io.js',
         'public/main.js',
+        'node_modules/sinon/pkg/sinon.js',
         'bower_components/angular-mocks/angular-mocks.js',
         'tests/browser/**/*.js'
     ];
