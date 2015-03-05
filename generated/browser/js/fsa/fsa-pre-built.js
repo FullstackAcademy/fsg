@@ -68,7 +68,7 @@
         this.getLoggedInUser = function () {
 
             if (this.isAuthenticated()) {
-                return $q.when({ user: Session.user });
+                return $q.when(Session.user);
             }
 
             return $http.get('/session').then(onSuccessfulLogin).catch(function () {
