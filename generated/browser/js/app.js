@@ -19,3 +19,28 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
 });
+
+app.run(function ($rootScope, AuthService, $state) {
+
+    var destinationStateRequiresAuth = function (state) {
+        return state.data && state.data.authenticate;
+    };
+
+    $rootScope.$on('$stateChangeStart', function (event, toState) {
+
+        if (!destinationStateRequiresAuth(toState)) return;
+        if (AuthService.isAuthenticated()) return;
+
+        event.preventDefault();
+
+        AuthService.getLoggedInUser().then(function (user) {
+            if (user) {
+                $state.go(toState.name);
+            } else {
+                $state.go('login');
+            }
+        });
+
+    });
+
+});

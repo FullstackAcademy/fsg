@@ -30,4 +30,21 @@ navbar {
     }
   }
 
+  .login-button {
+    float: right;
+    margin-top: 8px;
+  }
+
+  .welcome {
+    float: right;
+    margin-top: 12px;
+    span {
+      color: white;
+    }
+    a {
+      color: #f30046;
+      cursor: pointer;
+    }
+  }
+
 }

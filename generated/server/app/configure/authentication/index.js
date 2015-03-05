@@ -59,18 +59,6 @@ module.exports = function (app) {
         res.status(200).end();
     });
 
-    // app.getValue('isAuthenticated') can be used as middleware across your application
-    // to control access to specific routes.
-    app.setValue('isAuthenticated', function (req, res, next) {
-        if (req.user) {
-            next(null);
-        } else {
-            var err = new Error('Request is not authorized.');
-            err.status = 401;
-            next(err);
-        }
-    });
-
     // Each strategy enabled gets registered.
     ENABLED_AUTH_STRATEGIES.forEach(function (strategyName) {
         require(path.join(__dirname, strategyName))(app);

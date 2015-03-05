@@ -9,7 +9,7 @@
   "noarg" : true,
   "nonbsp" : true,
   "nonew" : true,
-  "strict" : true,
+  "strict" : false,
   "trailing" : true,
   "undef" : true,
   "browser": true,
