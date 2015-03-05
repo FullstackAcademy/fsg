@@ -56,6 +56,9 @@ module.exports = function (app) {
             } else { // If this twitter id has never been seen before and no user is attached.
                 createNewUser(token, tokenSecret, profile).then(function (createdUser) {
                     done(null, createdUser);
+                }, function (err) {
+                    console.error(err);
+                    done(err);
                 });
             }
 

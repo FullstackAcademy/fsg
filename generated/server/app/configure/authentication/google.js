@@ -30,6 +30,9 @@ module.exports = function (app) {
                     }
                 }).then(function (user) {
                     done(null, user);
+                }, function (err) {
+                    console.error(err);
+                    done(err);
                 });
             }
 
