@@ -41,16 +41,17 @@ var encryptPassword = function (plainText, salt) {
 
 schema.pre('save', function (next) {
 
-    var user = this;
-
-    if (user.isModified('password')) {
-        user.salt = generateSalt();
-        user.password = encryptPassword(user.password, user.salt);
+    if (this.isModified('password')) {
+        this.salt = this.constructor.generateSalt();
+        this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
 
     next();
 
 });
+
+schema.statics.generateSalt = generateSalt;
+schema.statics.encryptPassword = encryptPassword;
 
 schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;

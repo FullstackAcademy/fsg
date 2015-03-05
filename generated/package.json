@@ -35,6 +35,8 @@
     "karma-mocha": "^0.1.10",
     "karma-phantomjs-launcher": "^0.1.4",
     "lodash": "^3.3.0",
+    "mocha-mongoose": "^1.0.3",
+    "mongodb": "^1.4.33",
     "mongoose": "^3.8.23",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
