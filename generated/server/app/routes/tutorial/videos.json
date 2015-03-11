@@ -1,10 +1,6 @@
 {
   "sections": [
-    "Introduction",
-    "Server Side",
-    "Front End",
-    "Build Process (Gulp)",
-    "Deploying to Heroku"
+    "Introduction"
   ],
   "videos": [
     {
@@ -12,66 +8,6 @@
       "youtubeID": "mZ7636ovEts",
       "section": "Introduction",
       "order": 1
-    },
-    {
-      "name": "Getting Started",
-      "youtubeID": "J1B0Wjhm5Yo",
-      "section": "Introduction",
-      "order": 2
-    },
-    {
-      "name": "The Basics: Express, MongoDB, Socket.io",
-      "youtubeID": "xQYqzp9X0FU",
-      "section": "Server Side",
-      "order": 1
-    },
-    {
-      "name": "Environment Variables",
-      "youtubeID": "90U1UFalT3g",
-      "section": "Server Side",
-      "order": 2
-    },
-    {
-      "name": "Authentication Strategies",
-      "youtubeID": "90U1UFalT3g",
-      "section": "Server Side",
-      "order": 3
-    },
-    {
-      "name": "Bower Components",
-      "youtubeID": "90U1UFalT3g",
-      "section": "Front End",
-      "order": 1
-    },
-    {
-      "name": "FSA Prebuilt Module",
-      "youtubeID": "90U1UFalT3g",
-      "section": "Front End",
-      "order": 2
-    },
-    {
-      "name": "Front-end Architecture",
-      "youtubeID": "90U1UFalT3g",
-      "section": "Front End",
-      "order": 3
-    },
-    {
-      "name": "Using the Authentication Service",
-      "youtubeID": "90U1UFalT3g",
-      "section": "Front End",
-      "order": 4
-    },
-    {
-      "name": "Basic Introduction",
-      "youtubeID": "90U1UFalT3g",
-      "section": "Build Process (Gulp)",
-      "order": 1
-    },
-    {
-      "name": "Usage",
-      "youtubeID": "90U1UFalT3g",
-      "section": "Build Process (Gulp)",
-      "order": 2
     }
   ]
 }
