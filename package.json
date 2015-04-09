@@ -9,5 +9,9 @@
     "bluebird": "^2.9.13",
     "chalk": "^1.0.0",
     "ncp": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FullstackAcademy/fsg.git"
   }
 }
