@@ -1,11 +1,7 @@
 {
   "name": "FullstackGeneratedApp",
   "version": "1.0.0",
-  "authors": [
-    "Joseph Alves <databentpx@gmail.com>"
-  ],
-  "description": "Scaffolding for projects at Fullstack Academy",
-  "license": "MIT",
+  "description": "A generated Fullstack Academy project ",
   "private": true,
   "ignore": [
     "**/.*",

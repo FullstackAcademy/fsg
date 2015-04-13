@@ -1,2 +1,2 @@
 # fsg
-The Fullstack Generator
+

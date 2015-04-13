@@ -13,5 +13,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/FullstackAcademy/fsg.git"
+  },
+  "author": {
+    "name": "Joseph Alves",
+    "email": "databentpx@gmail.com"
   }
 }

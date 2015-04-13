@@ -31,7 +31,7 @@ module.exports = function (app) {
                 }).then(function (user) {
                     done(null, user);
                 }, function (err) {
-                    console.error(err);
+                    console.error('Error creating user from Facebook authentication', err);
                     done(err);
                 });
             }

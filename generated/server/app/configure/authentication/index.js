@@ -49,7 +49,7 @@ module.exports = function (app) {
         if (req.user) {
             res.send({ user: _.omit(req.user.toJSON(), ['salt', 'password']) });
         } else {
-            res.status(401).end();
+            res.status(401).send('No authenticated user.');
         }
     });
 

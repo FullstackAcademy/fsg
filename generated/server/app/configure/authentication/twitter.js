@@ -57,7 +57,7 @@ module.exports = function (app) {
                 createNewUser(token, tokenSecret, profile).then(function (createdUser) {
                     done(null, createdUser);
                 }, function (err) {
-                    console.error(err);
+                    console.error('Error creating user from Twitter authentication', err);
                     done(err);
                 });
             }
