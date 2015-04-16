@@ -4,4 +4,4 @@
 
 ---
 
-Check the [wiki](https://github.com/FullstackAcademy/fsg/wiki/01.-Getting-Started) to learn how to use this generator. More documentation to come!
+#### Check the [wiki](https://github.com/FullstackAcademy/fsg/wiki/01.-Getting-Started) to learn how to use this generator.
