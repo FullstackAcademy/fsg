@@ -20,12 +20,14 @@ var logMiddleware = function (req, res, next) {
     }
 
     function logRes (res, diff) {
+        var status = res.statusCode;
+        var meaning = http.STATUS_CODES[status];
         var statusColor =
-            (res.statusCode >= 500) ? 'red' :
-            (res.statusCode >= 400) ? 'yellow' :
-            (res.statusCode >= 300) ? 'cyan' :
-            /* status code  >= 200 */ 'green';
-        console.log(util.format('%s: ' + chalk[statusColor]('%s %s ') + chalk.gray('(%s ms)'), 'RESPONSE ', res.statusCode, http.STATUS_CODES[res.statusCode]), diff);
+            (status >= 500) ? 'red' :
+            (status >= 400) ? 'yellow' :
+            (status >= 300) ? 'cyan' :
+            /* code >= 200 */ 'green';
+        console.log(util.format('RESPONSE : ' + chalk[statusColor]('%s %s ') + chalk.gray('(%s ms)'), status, meaning, diff));
     }
 
     function msDiff (time) {
