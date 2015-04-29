@@ -13,7 +13,7 @@ var env = require(path.join(rootPath, './server/env'));
 var logMiddleware = function (req, res, next) {
 
     function logReq (req) {
-        console.log(chalk.gray('\n' + new Date().toString()));
+        console.log(chalk.gray(new Date().toString()));
         console.log(chalk.underline(util.format('%s: %s %s', 'REQUEST  ', req.method, req.path)));
         console.log(util.format('%s: %s', 'QUERY    ', util.inspect(req.query)));
         console.log(util.format('%s: %s', 'BODY     ', util.inspect(req.body)));
@@ -40,6 +40,8 @@ var logMiddleware = function (req, res, next) {
         // if req log is not deferred to res end, other req/res logs can occur
         logReq(req);
         logRes(res, msDiff(time));
+        // padding to separate from next cycle
+        console.log();
     });
     // not handling `close` event (connection terminates without proper `end`)
 
