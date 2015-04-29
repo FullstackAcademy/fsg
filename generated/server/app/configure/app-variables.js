@@ -45,8 +45,11 @@ var logMiddleware = function (req, res, next) {
         // padding to separate from next cycle
         console.log();
     });
-    // not handling `close` event (connection terminates without proper `end`)
-
+    res.on('close', function(){
+        logReq(req);
+        console.log(chalk.red('CONNECTION CLOSED BEFORE RES END/FLUSH\n'));
+    });
+    
     next();
 };
 
