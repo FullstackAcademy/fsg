@@ -131,7 +131,7 @@ describe('User model', function () {
                });
             });
 
-            it('should set user.password to the encrypted password', function () {
+            it('should set user.password to the encrypted password', function (done) {
                 createUser().then(function (user) {
                     var createdPassword = encryptSpy.getCall(0).returnValue;
                     expect(user.password).to.be.equal(createdPassword);
