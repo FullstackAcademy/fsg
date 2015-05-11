@@ -14,10 +14,14 @@
   "undef" : true,
   "browser": true,
   "laxbreak": true,
+  "mocha": true,
   "globals" : {
     "angular" : true,
     "app": true,
     "io": true,
-    "_": true
+    "_": true,
+    "inject": true,
+    "expect": true,
+    "sinon": true
   }
 }
