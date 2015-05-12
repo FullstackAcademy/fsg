@@ -8,7 +8,7 @@ app.directive('tutorialSection', function () {
             videos: '=',
             background: '@'
         },
-        templateUrl: 'js/tutorial/tutorial-section/tutorial-section.html',
+        templateUrl: 'app/tutorial/tutorial-section/tutorial-section.html',
         link: function (scope, element) {
             element.css({ background: scope.background });
         }

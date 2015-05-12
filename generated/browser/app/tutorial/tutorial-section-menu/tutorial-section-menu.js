@@ -3,7 +3,7 @@ app.directive('tutorialSectionMenu', function () {
     return {
         restrict: 'E',
         require: 'ngModel',
-        templateUrl: 'js/tutorial/tutorial-section-menu/tutorial-section-menu.html',
+        templateUrl: 'app/tutorial/tutorial-section-menu/tutorial-section-menu.html',
         scope: {
             sections: '='
         },

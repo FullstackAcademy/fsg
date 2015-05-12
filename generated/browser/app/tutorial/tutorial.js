@@ -3,7 +3,7 @@ app.config(function ($stateProvider) {
 
     $stateProvider.state('tutorial', {
         url: '/tutorial',
-        templateUrl: 'js/tutorial/tutorial.html',
+        templateUrl: 'app/tutorial/tutorial.html',
         controller: 'TutorialCtrl',
         resolve: {
             tutorialInfo: function (TutorialFactory) {

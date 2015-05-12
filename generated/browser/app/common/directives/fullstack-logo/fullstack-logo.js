@@ -2,6 +2,6 @@
 app.directive('fullstackLogo', function () {
     return {
         restrict: 'E',
-        templateUrl: 'js/common/directives/fullstack-logo/fullstack-logo.html'
+        templateUrl: 'app/common/directives/fullstack-logo/fullstack-logo.html'
     };
 });

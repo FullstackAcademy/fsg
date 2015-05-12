@@ -7,7 +7,7 @@ app.directive('tutorialVideo', function ($sce) {
 
     return {
         restrict: 'E',
-        templateUrl: 'js/tutorial/tutorial-video/tutorial-video.html',
+        templateUrl: 'app/tutorial/tutorial-video/tutorial-video.html',
         scope: {
             video: '='
         },

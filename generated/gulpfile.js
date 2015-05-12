@@ -30,13 +30,13 @@ gulp.task('reloadCSS', function () {
 });
 
 gulp.task('lintJS', function () {
-    return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
+    return gulp.src(['./browser/app/**/*.js', './server/**/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('buildJS', function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+    return gulp.src(['./browser/app/app.js', './browser/app/**/*.js'])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(concat('main.js'))
@@ -58,7 +58,7 @@ gulp.task('testBrowserJS', function (done) {
 });
 
 gulp.task('buildCSS', function () {
-    return gulp.src('./browser/scss/main.scss')
+    return gulp.src('./browser/app/main.scss')
         .pipe(plumber())
         .pipe(sass())
         .pipe(rename('style.css'))
@@ -100,7 +100,7 @@ gulp.task('buildCSSProduction', function () {
 });
 
 gulp.task('buildJSProduction', function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+    return gulp.src(['./browser/app/app.js', './browser/app/**/*.js'])
         .pipe(concat('main.js'))
         .pipe(babel())
         .pipe(ngAnnotate())
@@ -128,7 +128,7 @@ gulp.task('default', function () {
     livereload.listen();
     gulp.start('build');
 
-    gulp.watch('browser/js/**', function () {
+    gulp.watch('browser/app/**', function () {
         runSeq('lintJS', 'buildJS', ['testBrowserJS', 'reload']);
     });
 
