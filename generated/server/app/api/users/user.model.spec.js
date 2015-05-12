@@ -5,7 +5,7 @@ var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
 
-require('../../../server/db/models/user');
+require('./user.model');
 
 var User = mongoose.model('User');
 
