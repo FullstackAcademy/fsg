@@ -12,19 +12,14 @@ module.exports = function (config) {
         'public/main.js',
         'node_modules/sinon/pkg/sinon.js',
         'bower_components/angular-mocks/angular-mocks.js',
-        'tests/browser/**/*.js'
-    ];
-
-    var excludeFiles = [
-        'tests/browser/karma.conf.js'
+        'browser/**/*.spec.js'
     ];
 
     var configObj = {
         browsers: ['PhantomJS'],
         frameworks: ['mocha', 'chai'],
-        basePath: path.join(__dirname, '../../'),
-        files: filesCollection,
-        exclude: excludeFiles
+        basePath: __dirname,
+        files: filesCollection
     };
 
     config.set(configObj);
