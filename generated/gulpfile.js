@@ -30,13 +30,13 @@ gulp.task('reloadCSS', function () {
 });
 
 gulp.task('lintJS', function () {
-    return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
+    return gulp.src(['./browser/app/**/*.js', './server/**/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('buildJS', function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+    return gulp.src(['./browser/app/app.js', './browser/app/**/*.js', '!./browser/app/**/*.spec.js'])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(concat('main.js'))
@@ -46,19 +46,19 @@ gulp.task('buildJS', function () {
 });
 
 gulp.task('testServerJS', function () {
-    return gulp.src('./tests/server/**/*.js', {read: false})
+    return gulp.src('./server/**/*.spec.js', {read: false})
         .pipe(mocha({reporter: 'spec'}));
 });
 
 gulp.task('testBrowserJS', function (done) {
     karma.start({
-        configFile: __dirname + '/tests/browser/karma.conf.js',
+        configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done);
 });
 
 gulp.task('buildCSS', function () {
-    return gulp.src('./browser/scss/main.scss')
+    return gulp.src('./browser/app/main.scss')
         .pipe(plumber())
         .pipe(sass())
         .pipe(rename('style.css'))
@@ -92,7 +92,7 @@ gulp.task('seedDB', function () {
 // --------------------------------------------------------------
 
 gulp.task('buildCSSProduction', function () {
-    return gulp.src('./browser/scss/main.scss')
+    return gulp.src('./browser/app/main.scss')
         .pipe(sass())
         .pipe(rename('style.css'))
         .pipe(minifyCSS())
@@ -100,7 +100,7 @@ gulp.task('buildCSSProduction', function () {
 });
 
 gulp.task('buildJSProduction', function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+    return gulp.src(['./browser/app/app.js', './browser/app/**/*.js', '!./browser/app/**/*.spec.js'])
         .pipe(concat('main.js'))
         .pipe(babel())
         .pipe(ngAnnotate())
@@ -128,17 +128,16 @@ gulp.task('default', function () {
     livereload.listen();
     gulp.start('build');
 
-    gulp.watch('browser/js/**', function () {
+    gulp.watch('browser/**/*.js', function () {
         runSeq('lintJS', 'buildJS', ['testBrowserJS', 'reload']);
     });
 
-    gulp.watch('browser/scss/**', function () {
+    gulp.watch('browser/**/*.scss', function () {
         runSeq('buildCSS', 'reloadCSS');
     });
 
     gulp.watch('server/**/*.js', ['lintJS']);
     gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);
-    gulp.watch(['tests/server/**/*.js', 'server/**/*.js'], ['testServerJS']);
-    gulp.watch('tests/browser/**/*', ['testBrowserJS']);
+    gulp.watch('server/**/*.js', ['testServerJS']);
 
 });
