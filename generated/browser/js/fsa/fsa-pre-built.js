@@ -8,19 +8,8 @@
     var app = angular.module('fsaPreBuilt', []);
 
     app.factory('Socket', function ($location) {
-
         if (!window.io) throw new Error('socket.io not found!');
-
-        var socket;
-
-        if ($location.$$port) {
-            socket = io('http://localhost:1337');
-        } else {
-            socket = io('/');
-        }
-
-        return socket;
-
+        return window.io(window.location.origin);
     });
 
     // AUTH_EVENTS is used throughout our app to

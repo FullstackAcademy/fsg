@@ -1,10 +1,8 @@
 <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
 
-    <div class="alert alert-danger" ng-show="error">
-        <span class="glyphicon glyphicon-exclamation-sign"></span>
-        <span class="sr-only">Error:</span>
+    <alert type="danger" ng-show="error">
         {{ error }}
-    </div>
+    </alert>
 
     <div class="form-group">
         <label for="email">Email address</label>

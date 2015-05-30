@@ -119,7 +119,7 @@ gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
         runSeq(['buildJSProduction', 'buildCSSProduction']);
     } else {
-        runSeq(['buildJS', 'buildCSS']);
+        runSeq(['lintJS', 'buildJS', 'buildCSS']);
     }
 });
 
@@ -129,7 +129,7 @@ gulp.task('default', function () {
     gulp.start('build');
 
     gulp.watch('browser/js/**', function () {
-        runSeq('lintJS', 'buildJS', ['testBrowserJS', 'reload']);
+        runSeq('buildJS', ['testBrowserJS', 'reload']);
     });
 
     gulp.watch('browser/scss/**', function () {
