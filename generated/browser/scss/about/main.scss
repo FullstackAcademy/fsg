@@ -1,21 +1,33 @@
 #about {
 
-  padding-bottom: 50px;
+  padding: 50px 100px;
 
   p {
     width: 400px;
     margin: 0 auto;
-    margin-top: 50px;
     text-align: justify;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 300;
+    float: left;
   }
 
-  img {
-    display: block;
+  .carousel {
+    float: right;
     width: 600px;
+    overflow: hidden;
     margin: 0 auto;
-    margin-top: 50px;
+    .carousel-control {
+      background: none;
+    }
+    .carousel-indicators {
+      display: none;
+    }
+    img {
+      width: 100%;
+      height: 500px;
+      display: block;
+      margin: 0 auto;
+    }
   }
 
 }
