@@ -1,4 +1,3 @@
-'use strict';
 app.directive('tutorialSectionMenu', function () {
     return {
         restrict: 'E',

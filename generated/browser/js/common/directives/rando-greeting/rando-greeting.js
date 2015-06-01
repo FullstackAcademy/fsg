@@ -1,4 +1,3 @@
-'use strict';
 app.directive('randoGreeting', function (RandomGreetings) {
 
     return {

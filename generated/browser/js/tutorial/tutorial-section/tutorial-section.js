@@ -1,5 +1,3 @@
-'use strict';
-
 app.directive('tutorialSection', function () {
     return {
         restrict: 'E',

@@ -1,4 +1,3 @@
-'use strict';
 app.directive('fullstackLogo', function () {
     return {
         restrict: 'E',
