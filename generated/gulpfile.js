@@ -16,6 +16,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 var karma = require('karma').server;
+var istanbul = require('gulp-istanbul');
 
 // Development tasks
 // --------------------------------------------------------------
@@ -45,9 +46,21 @@ gulp.task('buildJS', function () {
         .pipe(gulp.dest('./public'));
 });
 
-gulp.task('testServerJS', function () {
-    return gulp.src('./tests/server/**/*.js', {read: false})
-        .pipe(mocha({reporter: 'spec'}));
+gulp.task('testServerJS', function (done) {
+    gulp.src('./server/**/*.js')
+        .pipe(istanbul({
+            includeUntested: true
+        }))
+        .pipe(istanbul.hookRequire())
+        .on('finish', function () {
+            gulp.src('./tests/server/**/*.js', {read: false})
+                .pipe(mocha({reporter: 'spec'}))
+                .pipe(istanbul.writeReports({
+                    dir: './coverage/server/',
+                    reporters: ['html', 'text']
+                }))
+                .on('end', done);
+        });
 });
 
 gulp.task('testBrowserJS', function (done) {
