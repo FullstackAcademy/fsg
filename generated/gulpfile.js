@@ -13,7 +13,7 @@ var minifyCSS = require('gulp-minify-css');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
-var jshint = require('gulp-jshint');
+var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');
 var karma = require('karma').server;
 
@@ -30,12 +30,15 @@ gulp.task('reloadCSS', function () {
 });
 
 gulp.task('lintJS', function () {
+
     return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'));
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failOnError());
+
 });
 
-gulp.task('buildJS', function () {
+gulp.task('buildJS', ['lintJS'], function () {
     return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
         .pipe(plumber())
         .pipe(sourcemaps.init())
@@ -62,7 +65,7 @@ gulp.task('buildCSS', function () {
         .pipe(plumber())
         .pipe(sass())
         .pipe(rename('style.css'))
-        .pipe(gulp.dest('./public'))
+        .pipe(gulp.dest('./public'));
 });
 
 gulp.task('seedDB', function () {
@@ -119,7 +122,7 @@ gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
         runSeq(['buildJSProduction', 'buildCSSProduction']);
     } else {
-        runSeq(['lintJS', 'buildJS', 'buildCSS']);
+        runSeq(['buildJS', 'buildCSS']);
     }
 });
 
@@ -129,7 +132,7 @@ gulp.task('default', function () {
     gulp.start('build');
 
     gulp.watch('browser/js/**', function () {
-        runSeq('buildJS', ['testBrowserJS', 'reload']);
+        runSeq('buildJS', 'reload');
     });
 
     gulp.watch('browser/scss/**', function () {
@@ -137,8 +140,14 @@ gulp.task('default', function () {
     });
 
     gulp.watch('server/**/*.js', ['lintJS']);
+
+    // Reload when a template (.html) file changes.
     gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);
+
+    // Run server tests when a server file or server test file changes.
     gulp.watch(['tests/server/**/*.js', 'server/**/*.js'], ['testServerJS']);
+
+    // Run browser testing when a browser test file changes.
     gulp.watch('tests/browser/**/*', ['testBrowserJS']);
 
 });
