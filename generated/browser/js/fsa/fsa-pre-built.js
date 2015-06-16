@@ -7,7 +7,7 @@
 
     var app = angular.module('fsaPreBuilt', []);
 
-    app.factory('Socket', function ($location) {
+    app.factory('Socket', function () {
         if (!window.io) throw new Error('socket.io not found!');
         return window.io(window.location.origin);
     });
@@ -34,7 +34,7 @@
         return {
             responseError: function (response) {
                 $rootScope.$broadcast(statusDict[response.status], response);
-                return $q.reject(response);
+                return $q.reject(response)
             }
         };
     });
@@ -49,6 +49,13 @@
     });
 
     app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+
+        function onSuccessfulLogin(response) {
+            var data = response.data;
+            Session.create(data.id, data.user);
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            return data.user;
+        }
 
         // Uses the session factory to see if an
         // authenticated user is currently registered.
@@ -78,7 +85,7 @@
         this.login = function (credentials) {
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)
-                .catch(function (response) {
+                .catch(function () {
                     return $q.reject({ message: 'Invalid login credentials.' });
                 });
         };
@@ -89,13 +96,6 @@
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             });
         };
-
-        function onSuccessfulLogin(response) {
-            var data = response.data;
-            Session.create(data.id, data.user);
-            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            return data.user;
-        }
 
     });
 

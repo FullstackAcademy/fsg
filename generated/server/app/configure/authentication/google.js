@@ -17,26 +17,25 @@ module.exports = function (app) {
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
 
-        UserModel.findOne({ 'google.id': profile.id }, function (err, user) {
+        UserModel.findOne({ 'google.id': profile.id }).exec()
+            .then(function (user) {
 
-            if (err) return done(err);
+                if (user) {
+                    return user;
+                } else {
+                    return UserModel.create({
+                        google: {
+                            id: profile.id
+                        }
+                    });
+                }
 
-            if (user) {
-                done(null, user);
-            } else {
-                UserModel.create({
-                    google: {
-                        id: profile.id
-                    }
-                }).then(function (user) {
-                    done(null, user);
-                }, function (err) {
-                    console.error('Error creating user from Google authentication', err);
-                    done(err);
-                });
-            }
-
-        });
+            }).then(function (userToLogin) {
+                done(null, userToLogin);
+            }).catch(function (err) {
+                console.error('Error creating user from Google authentication', err);
+                done(err);
+            });
 
     };
 

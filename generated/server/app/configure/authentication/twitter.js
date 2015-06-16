@@ -17,7 +17,6 @@ module.exports = function (app) {
     };
 
     var createNewUser = function (token, tokenSecret, profile) {
-
             return UserModel.create({
                 twitter: {
                     id: profile.id,
@@ -26,7 +25,6 @@ module.exports = function (app) {
                     tokenSecret: tokenSecret
                 }
             });
-
     };
 
     var updateUserCredentials = function (user, token, tokenSecret, profile) {
@@ -45,24 +43,19 @@ module.exports = function (app) {
 
     var verifyCallback = function (token, tokenSecret, profile, done) {
 
-        UserModel.findOne({ 'twitter.id': profile.id }, function (err, user) {
-
-            if (err) return done(err);
-
-            if (user) { // If a user with this twitter id already exists.
-                updateUserCredentials(user, token, tokenSecret, profile).then(function () {
-                    done(null, user);
-                });
-            } else { // If this twitter id has never been seen before and no user is attached.
-                createNewUser(token, tokenSecret, profile).then(function (createdUser) {
-                    done(null, createdUser);
-                }, function (err) {
-                    console.error('Error creating user from Twitter authentication', err);
-                    done(err);
-                });
-            }
-
-        });
+        UserModel.findOne({ 'twitter.id': profile.id }).exec()
+            .then(function (user) {
+                if (user) { // If a user with this twitter id already exists.
+                    return updateUserCredentials(user, token, tokenSecret, profile);
+                } else { // If this twitter id has never been seen before and no user is attached.
+                    return createNewUser(token, tokenSecret, profile);
+                }
+            }).then(function (user) {
+                done(null, user);
+            }).catch(function (err) {
+                console.error('Error creating user from Twitter authentication', err);
+                done(err);
+            });
 
     };
 
