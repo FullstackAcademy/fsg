@@ -23,7 +23,21 @@ module.exports = function (config) {
         frameworks: ['mocha', 'chai'],
         basePath: path.join(__dirname, '../../'),
         files: filesCollection,
-        exclude: excludeFiles
+        exclude: excludeFiles,
+        reporters: ['mocha', 'coverage'],
+        preprocessors: {
+            'public/main.js': 'coverage'
+        },
+        coverageReporter: {
+            dir: 'coverage/browser/',
+            reporters: [{
+                type: 'text',
+                subdir: '.'
+            }, {
+                type: 'html',
+                subdir: '.'
+            }]
+        }
     };
 
     config.set(configObj);
