@@ -49,7 +49,13 @@ gulp.task('buildJS', ['lintJS'], function () {
         .pipe(gulp.dest('./public'));
 });
 
-gulp.task('testServerJS', function (done) {
+gulp.task('testServerJS', function () {
+	return gulp.src('./tests/server/**/*.js', {
+		read: false
+	}).pipe(mocha({ reporter: 'spec' }));
+});
+
+gulp.task('testServerJSWithCoverage', function (done) {
     gulp.src('./server/**/*.js')
         .pipe(istanbul({
             includeUntested: true
