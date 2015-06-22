@@ -21,6 +21,7 @@
 
   "env": {
     "browser": 1,     // browser global variables.
+    "es6": 1,         // ES6 activate!
     "node": 1,        // Node.js global variables and Node.js-specific rules.
     "amd": 0,         // defines require() and define() as global variables as per the amd spec.
     "mocha": 1,       // adds all of the Mocha testing global variables.
