@@ -63,13 +63,13 @@
             return !!Session.user;
         };
 
-        this.getLoggedInUser = function () {
+        this.getLoggedInUser = function (fromServer) {
 
             // If an authenticated session exists, we
             // return the user attached to that session
             // with a promise. This ensures that we can
             // always interface with this method asynchronously.
-            if (this.isAuthenticated()) {
+            if (this.isAuthenticated() && !fromServer) {
                 return $q.when(Session.user);
             }
 
