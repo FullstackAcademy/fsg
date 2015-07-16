@@ -20,6 +20,11 @@ app.factory('FullstackPics', function () {
         'https://pbs.twimg.com/media/B4qwC0iCYAAlPGh.jpg:large',
         'https://pbs.twimg.com/media/B2b33vRIUAA9o1D.jpg:large',
         'https://pbs.twimg.com/media/BwpIwr1IUAAvO2_.jpg:large',
-        'https://pbs.twimg.com/media/BsSseANCYAEOhLw.jpg:large'
+        'https://pbs.twimg.com/media/BsSseANCYAEOhLw.jpg:large',
+        'https://pbs.twimg.com/media/CJ4vLfuUwAAda4L.jpg:large',
+        'https://pbs.twimg.com/media/CI7wzjEVEAAOPpS.jpg:large',
+        'https://pbs.twimg.com/media/CIdHvT2UsAAnnHV.jpg:large',
+        'https://pbs.twimg.com/media/CGCiP_YWYAAo75V.jpg:large',
+        'https://pbs.twimg.com/media/CIS4JPIWIAI37qu.jpg:large'
     ];
 });
