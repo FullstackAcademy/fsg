@@ -69,7 +69,11 @@
             // return the user attached to that session
             // with a promise. This ensures that we can
             // always interface with this method asynchronously.
-            if (this.isAuthenticated() && !fromServer) {
+
+            // Optionally, if true is given as the fromServer parameter,
+            // then this cached value will not be used.
+
+            if (this.isAuthenticated() && fromServer !== true) {
                 return $q.when(Session.user);
             }
 
