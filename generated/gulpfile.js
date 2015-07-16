@@ -81,8 +81,9 @@ gulp.task('testBrowserJS', function (done) {
 
 gulp.task('buildCSS', function () {
     return gulp.src('./browser/scss/main.scss')
-        .pipe(plumber())
-        .pipe(sass())
+        .pipe(sass({
+            errLogToConsole: true
+        }))
         .pipe(rename('style.css'))
         .pipe(gulp.dest('./public'));
 });
