@@ -15,8 +15,6 @@ in the database. If you are developing multiple applications with the
 fsg scaffolding, keep in mind that fsg always uses the same database
 name in the environment files.
 
-Refer to the q documentation for why and how q.invoke is used.
-
 */
 
 var mongoose = require('mongoose');
