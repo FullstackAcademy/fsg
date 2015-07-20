@@ -31,10 +31,10 @@ module.exports = function (app) {
 
             }).then(function (userToLogin) {
                 done(null, userToLogin);
-            }).catch(function (err) {
+            }, function (err) {
                 console.error('Error creating user from Facebook authentication', err);
                 done(err);
-            });
+            })
 
     };
 

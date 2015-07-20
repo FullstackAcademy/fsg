@@ -2,7 +2,6 @@
 
 var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
-var Q = require('q');
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 
@@ -17,14 +16,14 @@ module.exports = function (app) {
     };
 
     var createNewUser = function (token, tokenSecret, profile) {
-            return UserModel.create({
-                twitter: {
-                    id: profile.id,
-                    username: profile.username,
-                    token: token,
-                    tokenSecret: tokenSecret
-                }
-            });
+        return UserModel.create({
+            twitter: {
+                id: profile.id,
+                username: profile.username,
+                token: token,
+                tokenSecret: tokenSecret
+            }
+        });
     };
 
     var updateUserCredentials = function (user, token, tokenSecret, profile) {
@@ -33,17 +32,13 @@ module.exports = function (app) {
         user.twitter.tokenSecret = tokenSecret;
         user.twitter.username = profile.username;
 
-        return new Q(function (resolve, reject) {
-            user.save(function (err) {
-                if (err) return reject(err);
-                resolve(user);
-            });
-        });
+        return user.save();
+
     };
 
     var verifyCallback = function (token, tokenSecret, profile, done) {
 
-        UserModel.findOne({ 'twitter.id': profile.id }).exec()
+        UserModel.findOne({'twitter.id': profile.id}).exec()
             .then(function (user) {
                 if (user) { // If a user with this twitter id already exists.
                     return updateUserCredentials(user, token, tokenSecret, profile);
@@ -52,7 +47,7 @@ module.exports = function (app) {
                 }
             }).then(function (user) {
                 done(null, user);
-            }).catch(function (err) {
+            }, function (err) {
                 console.error('Error creating user from Twitter authentication', err);
                 done(err);
             });
@@ -64,9 +59,9 @@ module.exports = function (app) {
     app.get('/auth/twitter', passport.authenticate('twitter'));
 
     app.get('/auth/twitter/callback',
-            passport.authenticate('twitter', { failureRedirect: '/login' }),
-            function (req, res) {
-                res.redirect('/');
-            });
+        passport.authenticate('twitter', {failureRedirect: '/login'}),
+        function (req, res) {
+            res.redirect('/');
+        });
 
 };
