@@ -1,5 +1,5 @@
 'use strict';
-var Q = require('q');
+var Promise = require('bluebird');
 var path = require('path');
 var chalk = require('chalk');
 
@@ -13,7 +13,7 @@ var db = mongoose.connect(DATABASE_URI).connection;
 // anywhere the User model needs to be used.
 require('./models');
 
-var startDbPromise = new Q(function (resolve, reject) {
+var startDbPromise = new Promise(function (resolve, reject) {
     db.on('open', resolve);
     db.on('error', reject);
 });

@@ -20,14 +20,10 @@ Refer to the q documentation for why and how q.invoke is used.
 */
 
 var mongoose = require('mongoose');
-var connectToDb = require('./server/db');
-var User = mongoose.model('User');
-var q = require('q');
+var Promise = require('bluebird');
 var chalk = require('chalk');
-
-var getCurrentUserData = function () {
-    return q.ninvoke(User, 'find', {});
-};
+var User = Promise.promisifyAll(mongoose.model('User'));
+var connectToDb = require('./server/db');
 
 var seedUsers = function () {
 
@@ -42,12 +38,12 @@ var seedUsers = function () {
         }
     ];
 
-    return q.invoke(User, 'create', users);
+    return User.createAsync(users);
 
 };
 
 connectToDb.then(function () {
-    getCurrentUserData().then(function (users) {
+    User.findAsync({}).then(function (users) {
         if (users.length === 0) {
             return seedUsers();
         } else {
