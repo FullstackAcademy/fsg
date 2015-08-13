@@ -6,4 +6,4 @@
 
 #### Check the [wiki](https://github.com/FullstackAcademy/fsg/wiki/Getting-Started) to learn how to use this generator.
 
-![Badge of Honor](https://img.shields.io/badge/Built%20at-Fullstack-green.svg?style=flat-square)
+![Badge of Honor](https://img.shields.io/badge/Built%20at-Fullstack%20Academy-green.svg?style=flat-square)
