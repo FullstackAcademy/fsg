@@ -6,7 +6,7 @@ module.exports = function (config) {
         'node_modules/lodash/index.js',
         'node_modules/angular/angular.js',
         'node_modules/angular-ui-router/release/angular-ui-router.js',
-        'node_modules/angular-bootstrap/dist/ui-bootstrap.js',
+        'node_modules/angular-bootstrap/ui-bootstrap.js',
         'node_modules/socket.io-client/socket.io.js',
         'public/main.js',
         'node_modules/sinon/pkg/sinon.js',
