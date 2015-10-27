@@ -26,6 +26,11 @@ var schema = new mongoose.Schema({
     }
 });
 
+// method to remove sensitive information from user objects before sending them out
+schema.methods.sanitize =  function () {
+    return _.omit(this.toJSON(), ['password', 'salt']);
+};
+
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
 var generateSalt = function () {
