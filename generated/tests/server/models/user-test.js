@@ -142,6 +142,23 @@ describe('User model', function () {
 
         });
 
+        describe('sanitize method', function () {
+
+            var createUser = function () {
+                return User.create({ email: 'obama@gmail.com', password: 'potus' });
+            };
+
+            it('should remove sensitive information from a user object', function () {
+                createUser().then(function (user) {
+                    var sanitizedUser = user.sanitize();
+                    expect(user.password).to.be.ok;
+                    expect(user.salt).to.be.ok;
+                    expect(sanitizedUser.password).to.be.undefined;
+                    expect(sanitizedUser.salt).to.be.undefined;
+                });
+            });
+        });
+
     });
 
 });
