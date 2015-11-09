@@ -1,6 +1,6 @@
 {
   "name": "fsg",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "Fullstack, generate!",
   "bin": {
     "fsg": "bin/fsg"
