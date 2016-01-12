@@ -17,6 +17,9 @@ name in the environment files.
 
 */
 
+// ES6 by default! Using http://babeljs.io
+require('babel/register');
+
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var chalk = require('chalk');
