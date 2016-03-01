@@ -46,13 +46,15 @@ gulp.task('buildJS', ['lintJS'], function () {
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(concat('main.js'))
-        .pipe(babel())
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public'));
 });
 
 gulp.task('testServerJS', function () {
-    require('babel/register');
+    require('babel-register');
 	return gulp.src('./tests/server/**/*.js', {
 		read: false
 	}).pipe(mocha({ reporter: 'spec' }));
