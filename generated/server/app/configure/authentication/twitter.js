@@ -45,9 +45,11 @@ module.exports = function (app) {
                 } else { // If this twitter id has never been seen before and no user is attached.
                     return createNewUser(token, tokenSecret, profile);
                 }
-            }).then(function (user) {
+            })
+            .then(function (user) {
                 done(null, user);
-            }, function (err) {
+            })
+            .catch(function (err) {
                 console.error('Error creating user from Twitter authentication', err);
                 done(err);
             });

@@ -1,6 +1,5 @@
 'use strict';
 var passport = require('passport');
-var _ = require('lodash');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
@@ -19,9 +18,8 @@ module.exports = function (app) {
                     // Properly authenticated.
                     done(null, user);
                 }
-            }, function (err) {
-                done(err);
-            });
+            })
+            .catch(done);
     };
 
     passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, strategyFn));

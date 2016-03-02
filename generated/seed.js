@@ -21,7 +21,14 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
-var User = Promise.promisifyAll(mongoose.model('User'));
+var User = mongoose.model('User');
+
+var wipeCollections = function () {
+    var removeUsers = User.remove({});
+    return Promise.all([
+        removeUsers
+    ]);
+};
 
 var seedUsers = function () {
 
@@ -36,23 +43,22 @@ var seedUsers = function () {
         }
     ];
 
-    return User.createAsync(users);
+    return User.create(users);
 
 };
 
-connectToDb.then(function () {
-    User.findAsync({}).then(function (users) {
-        if (users.length === 0) {
-            return seedUsers();
-        } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
-            process.kill(0);
-        }
-    }).then(function () {
+connectToDb
+    .then(function () {
+        return wipeCollections();
+    })
+    .then(function () {
+        return seedUsers();
+    })
+    .then(function () {
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
-    }).catch(function (err) {
+    })
+    .catch(function (err) {
         console.error(err);
         process.kill(1);
     });
-});

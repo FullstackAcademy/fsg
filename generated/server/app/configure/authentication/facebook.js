@@ -29,9 +29,11 @@ module.exports = function (app) {
                     });
                 }
 
-            }).then(function (userToLogin) {
+            })
+            .then(function (userToLogin) {
                 done(null, userToLogin);
-            }, function (err) {
+            })
+            .catch(function (err) {
                 console.error('Error creating user from Facebook authentication', err);
                 done(err);
             })
