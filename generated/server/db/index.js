@@ -13,8 +13,11 @@ var db = mongoose.connect(DATABASE_URI).connection;
 // anywhere the User model needs to be used.
 require('./models');
 
+// Modifying startDbPromise to return the db object to have an access to it when  .then on startDbPromise
 var startDbPromise = new Promise(function (resolve, reject) {
-    db.on('open', resolve);
+    db.on('open', function() {
+    	resolve(db)
+    });
     db.on('error', reject);
 });
 
