@@ -18,8 +18,8 @@ require('./models');
 
 // Modifying startDbPromise to return the db object to have an access to it when  .then on startDbPromise
 var startDbPromise = new Promise(function (resolve, reject) {
-    db.on('open', function() {
-    	resolve(db)
+    db.on('open', function () {
+    	resolve(db);
     });
     db.on('error', reject);
 });
