@@ -93,7 +93,9 @@ gulp.task('buildCSS', function () {
         .pipe(plumber({
             errorHandler: notify.onError('SASS processing failed! Check your gulp process.')
         }))
+        .pipe(sourcemaps.init())
         .pipe(sassCompilation)
+        .pipe(sourcemaps.write())
         .pipe(rename('style.css'))
         .pipe(gulp.dest('./public'));
 });
