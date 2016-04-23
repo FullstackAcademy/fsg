@@ -21,7 +21,7 @@ module.exports = function (config) {
     ];
 
     var configObj = {
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
         frameworks: ['mocha', 'chai'],
         basePath: path.join(__dirname, '../../'),
         files: filesCollection,
