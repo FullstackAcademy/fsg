@@ -112,7 +112,9 @@ gulp.task('buildCSSProduction', function () {
 gulp.task('buildJSProduction', function () {
     return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
         .pipe(concat('main.js'))
-        .pipe(babel())
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(ngAnnotate())
         .pipe(uglify())
         .pipe(gulp.dest('./public'));
