@@ -6,7 +6,16 @@ var rename = bluebird.promisify(require('fs').rename);
 
 ncp.limit = 16;
 
-var newProjectDir = process.cwd();
+var newProjectDir = (function () {
+
+    if (process.argv[2]) {
+        return path.join(process.cwd(), process.argv[2]);
+    }
+
+    return process.cwd();
+
+})();
+
 var generatorFilesPath = path.join(__dirname, '../generated');
 
 
