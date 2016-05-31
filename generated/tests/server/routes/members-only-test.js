@@ -1,26 +1,27 @@
 // Instantiate all models
-var mongoose = require('mongoose');
-require('../../../server/db/models');
-var User = mongoose.model('User');
-
 var expect = require('chai').expect;
 
-var dbURI = 'mongodb://localhost:27017/testingDB';
-var clearDB = require('mocha-mongoose')(dbURI);
+var Sequelize = require('sequelize');
+var dbURI = 'postgres://localhost:5432/testing-fsg';
+var db = new Sequelize(dbURI, {
+    logging: false
+});
+require('../../../server/db/models/user')(db);
 
 var supertest = require('supertest');
-var app = require('../../../server/app');
 
 describe('Members Route', function () {
 
-	beforeEach('Establish DB connection', function (done) {
-		if (mongoose.connection.db) return done();
-		mongoose.connect(dbURI, done);
-	});
+    var app, User;
 
-	afterEach('Clear test database', function (done) {
-		clearDB(done);
-	});
+    beforeEach('Sync DB', function () {
+        return db.sync({ force: true });
+    });
+
+    beforeEach('Create app', function () {
+        app = require('../../../server/app')(db);
+        User = db.model('user');
+    });
 
 	describe('Unauthenticated request', function () {
 
@@ -48,7 +49,9 @@ describe('Members Route', function () {
 		};
 
 		beforeEach('Create a user', function (done) {
-			User.create(userInfo, done);
+			return User.create(userInfo).then(function (user) {
+                done();
+            }).catch(done);
 		});
 
 		beforeEach('Create loggedIn user agent and authenticate', function (done) {

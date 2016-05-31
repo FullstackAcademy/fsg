@@ -1,5 +1,5 @@
 'use strict';
-module.exports = function (app) {
+module.exports = function (app, db) {
 
     // setValue and getValue are merely alias
     // for app.set and app.get used in the less
@@ -18,6 +18,6 @@ module.exports = function (app) {
     // variable inside of server/app/configure/app-variables.js
     app.use(app.getValue('log'));
 
-    require('./authentication')(app);
+    require('./authentication')(app, db);
 
 };

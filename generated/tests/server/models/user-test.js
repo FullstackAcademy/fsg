@@ -1,28 +1,18 @@
-var dbURI = 'mongodb://localhost:27017/testingDB';
-var clearDB = require('mocha-mongoose')(dbURI);
-
 var sinon = require('sinon');
 var expect = require('chai').expect;
-var mongoose = require('mongoose');
 
-// Require in all models.
-require('../../../server/db/models');
+var Sequelize = require('sequelize');
+var dbURI = 'postgres://localhost:5432/testing-fsg';
+var db = new Sequelize(dbURI);
 
-var User = mongoose.model('User');
+require('../../../server/db/models/user')(db);
+
+var User = db.model('user');
 
 describe('User model', function () {
 
-    beforeEach('Establish DB connection', function (done) {
-        if (mongoose.connection.db) return done();
-        mongoose.connect(dbURI, done);
-    });
-
-    afterEach('Clear test database', function (done) {
-        clearDB(done);
-    });
-
-    it('should exist', function () {
-        expect(User).to.be.a('function');
+    beforeEach('Sync DB', function () {
+       return db.sync({ force: true });
     });
 
     describe('password encryption', function () {

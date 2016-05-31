@@ -1,10 +1,10 @@
 'use strict';
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var mongoose = require('mongoose');
-var UserModel = mongoose.model('User');
 
-module.exports = function (app) {
+module.exports = function (app, db) {
+
+    var User = db.define('user');
 
     var facebookConfig = app.getValue('env').FACEBOOK;
 
@@ -16,19 +16,19 @@ module.exports = function (app) {
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
 
-        UserModel.findOne({ 'facebook.id': profile.id }).exec()
+        User.findOne({
+                where: {
+                    facebook_id: profile.id
+                }
+            })
             .then(function (user) {
-
                 if (user) {
                     return user;
                 } else {
-                    return UserModel.create({
-                        facebook: {
-                            id: profile.id
-                        }
+                    return User.create({
+                        facebook_id: profile.id
                     });
                 }
-
             })
             .then(function (userToLogin) {
                 done(null, userToLogin);
@@ -45,7 +45,7 @@ module.exports = function (app) {
     app.get('/auth/facebook', passport.authenticate('facebook'));
 
     app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', { failureRedirect: '/login' }),
+        passport.authenticate('facebook', {failureRedirect: '/login'}),
         function (req, res) {
             res.redirect('/');
         });

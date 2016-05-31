@@ -2,10 +2,10 @@
 
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var mongoose = require('mongoose');
-var UserModel = mongoose.model('User');
 
-module.exports = function (app) {
+module.exports = function (app, db) {
+
+    var User = db.model('user');
 
     var googleConfig = app.getValue('env').GOOGLE;
 
@@ -17,19 +17,19 @@ module.exports = function (app) {
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
 
-        UserModel.findOne({ 'google.id': profile.id }).exec()
+        User.findOne({
+                where: {
+                    google_id: profile.id
+                }
+            })
             .then(function (user) {
-
                 if (user) {
                     return user;
                 } else {
-                    return UserModel.create({
-                        google: {
-                            id: profile.id
-                        }
+                    return User.create({
+                        google_id: profile.id
                     });
                 }
-
             })
             .then(function (userToLogin) {
                 done(null, userToLogin);
@@ -51,7 +51,7 @@ module.exports = function (app) {
     }));
 
     app.get('/auth/google/callback',
-        passport.authenticate('google', { failureRedirect: '/login' }),
+        passport.authenticate('google', {failureRedirect: '/login'}),
         function (req, res) {
             res.redirect('/');
         });

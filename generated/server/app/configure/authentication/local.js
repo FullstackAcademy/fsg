@@ -1,15 +1,19 @@
 'use strict';
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
 
-module.exports = function (app) {
+module.exports = function (app, db) {
+
+    var User = db.model('user');
 
     // When passport.authenticate('local') is used, this function will receive
     // the email and password to run the actual authentication logic.
     var strategyFn = function (email, password, done) {
-        User.findOne({ email: email })
+        User.findOne({
+                where: {
+                    email: email
+                }
+            })
             .then(function (user) {
                 // user.correctPassword is a method from the User schema.
                 if (!user || !user.correctPassword(password)) {
@@ -22,7 +26,7 @@ module.exports = function (app) {
             .catch(done);
     };
 
-    passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, strategyFn));
+    passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, strategyFn));
 
     // A POST /login route is created to handle login.
     app.post('/login', function (req, res, next) {

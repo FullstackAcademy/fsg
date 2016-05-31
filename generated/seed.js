@@ -17,18 +17,10 @@ name in the environment files.
 
 */
 
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
 var chalk = require('chalk');
-var connectToDb = require('./server/db');
-var User = mongoose.model('User');
-
-var wipeCollections = function () {
-    var removeUsers = User.remove({});
-    return Promise.all([
-        removeUsers
-    ]);
-};
+var db = require('./server/db');
+var User = db.model('user');
+var Promise = require('sequelize').Promise;
 
 var seedUsers = function () {
 
@@ -43,14 +35,15 @@ var seedUsers = function () {
         }
     ];
 
-    return User.create(users);
+    var creatingUsers = users.map(function (userObj) {
+        return User.create(userObj);
+    });
+
+    return Promise.all(creatingUsers);
 
 };
 
-connectToDb
-    .then(function () {
-        return wipeCollections();
-    })
+db.sync({ force: true })
     .then(function () {
         return seedUsers();
     })
