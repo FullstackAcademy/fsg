@@ -49,9 +49,9 @@ db.sync({ force: true })
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
-        process.kill(0);
+        process.exit(0);
     })
     .catch(function (err) {
         console.error(err);
-        process.kill(1);
+        process.exit(1);
     });
