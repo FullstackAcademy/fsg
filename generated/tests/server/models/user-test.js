@@ -3,8 +3,6 @@ var expect = require('chai').expect;
 
 var Sequelize = require('sequelize');
 
-//testing environment variable 
-process.env.NODE_ENV = 'testing';
 var db = require('../../../server/db');
 
 var User = db.model('user');
