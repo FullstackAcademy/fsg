@@ -63,6 +63,8 @@ gulp.task('testServerJS', function () {
 });
 
 gulp.task('testServerJSWithCoverage', function (done) {
+    //testing environment variable 
+    process.env.NODE_ENV = 'testing';
     gulp.src('./server/**/*.js')
         .pipe(istanbul({
             includeUntested: true
@@ -80,6 +82,8 @@ gulp.task('testServerJSWithCoverage', function (done) {
 });
 
 gulp.task('testBrowserJS', function (done) {
+    //testing environment variable 
+    process.env.NODE_ENV = 'testing';
     karma.start({
         configFile: __dirname + '/tests/browser/karma.conf.js',
         singleRun: true
