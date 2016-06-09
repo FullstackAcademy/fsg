@@ -1,5 +1,5 @@
 module.exports = {
-  "DATABASE_URI": "postgres://localhost:5432/fsg",
+  "DATABASE_URI": "postgres://localhost:5432/testing-fsg",
   "SESSION_SECRET": "Optimus Prime is my real dad",
   "TWITTER": {
     "consumerKey": "INSERT_TWITTER_CONSUMER_KEY_HERE",
@@ -16,5 +16,5 @@ module.exports = {
     "clientSecret": "INSERT_GOOGLE_CLIENT_SECRET_HERE",
     "callbackURL": "INSERT_GOOGLE_CALLBACK_HERE"
   },
-  "LOGGING": true
+  "LOGGING": false
 };
