@@ -1,0 +1,7 @@
+// http://eslint.org/docs/rules/
+{
+  "extends": "fullstack", // from the `eslint-config-fullstack` npm module
+  "rules": {
+    // add rules here to override the fullstack config
+  }
+}
