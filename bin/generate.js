@@ -12,7 +12,7 @@ var newProjectDir = (function () {
         return path.resolve(process.cwd(), process.argv[2]);
     }
 
-    return path.join(process.cwd(), 'fsg');
+    return path.join(process.cwd(), 'generated');
 
 })();
 
