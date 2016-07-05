@@ -57,6 +57,7 @@
     "passport-twitter": "^1.0.2",
     "pg": "^4.5.5",
     "pg-hstore": "^2.3.2",
+    "pg-native": "^1.10.0",
     "run-sequence": "^1.0.2",
     "sequelize": "^3.23.3",
     "serve-favicon": "^2.2.0",
