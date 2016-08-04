@@ -45,7 +45,11 @@ module.exports = db.define('user', {
         }
     },
     hooks: {
-        beforeValidate: function (user) {
+        beforeCreate: function (user) {
+            user.salt = user.Model.generateSalt();
+            user.password = user.Model.encryptPassword(user.password, user.salt);
+        },
+        beforeUpdate: function (user) {
             if (user.changed('password')) {
                 user.salt = user.Model.generateSalt();
                 user.password = user.Model.encryptPassword(user.password, user.salt);
