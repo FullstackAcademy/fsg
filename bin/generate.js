@@ -9,10 +9,10 @@ ncp.limit = 16;
 var newProjectDir = (function () {
 
     if (process.argv[2]) {
-        return path.join(process.cwd(), process.argv[2]);
+        return path.resolve(process.cwd(), process.argv[2]);
     }
 
-    return process.cwd();
+    return path.join(process.cwd(), 'generated');
 
 })();
 
