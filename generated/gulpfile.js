@@ -55,7 +55,7 @@ gulp.task('buildJS', ['lintJS'], function () {
 
 gulp.task('testServerJS', function () {
     require('babel-register');
-    //testing environment variable 
+    //testing environment variable
     process.env.NODE_ENV = 'testing';
 	return gulp.src('./tests/server/**/*.js', {
 		read: false
@@ -63,7 +63,7 @@ gulp.task('testServerJS', function () {
 });
 
 gulp.task('testServerJSWithCoverage', function (done) {
-    //testing environment variable 
+    //testing environment variable
     process.env.NODE_ENV = 'testing';
     gulp.src('./server/**/*.js')
         .pipe(istanbul({
@@ -82,7 +82,7 @@ gulp.task('testServerJSWithCoverage', function (done) {
 });
 
 gulp.task('testBrowserJS', function (done) {
-    //testing environment variable 
+    //testing environment variable
     process.env.NODE_ENV = 'testing';
     karma.start({
         configFile: __dirname + '/tests/browser/karma.conf.js',
@@ -161,7 +161,7 @@ gulp.task('default', function () {
     gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);
 
     // Run server tests when a server file or server test file changes.
-    gulp.watch(['tests/server/**/*.js'], ['testServerJS']);
+    gulp.watch(['tests/server/**/*.js', 'server/app/**/*.js'], ['testServerJS']);
 
     // Run browser testing when a browser test file changes.
     gulp.watch('tests/browser/**/*', ['testBrowserJS']);
