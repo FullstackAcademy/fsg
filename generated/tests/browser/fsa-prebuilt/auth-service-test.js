@@ -26,7 +26,7 @@ describe('AuthService', function () {
     describe('isAuthenicated', function () {
 
         it('should return true if a Session exists', function () {
-            Session.create('testID', {email: 'cool@gmail.com'});
+            Session.create({email: 'cool@gmail.com'});
             expect(AuthService.isAuthenticated()).to.be.ok;
         });
 
@@ -41,7 +41,7 @@ describe('AuthService', function () {
 
         it('should return the user from the Session if already authenticated', function (done) {
             var x = {};
-            Session.create('testID', x);
+            Session.create(x);
             AuthService.getLoggedInUser().then(function (user) {
                 expect(user).to.be.equal(x);
                 done();
@@ -257,7 +257,7 @@ describe('AuthService', function () {
 
         it('should destroy the session', function (done) {
 
-            Session.create('testID', { email: 'obama@gmai.com' });
+            Session.create({ email: 'obama@gmai.com' });
 
             AuthService.logout().then(function () {
                 expect(Session.user).to.be.equal(null);
