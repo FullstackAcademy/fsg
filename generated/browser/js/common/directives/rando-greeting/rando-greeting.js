@@ -1,4 +1,3 @@
-/* global app */
 app.directive('randoGreeting', function (RandomGreetings) {
 
     return {

@@ -1,4 +1,3 @@
-/* global app */
 app.factory('RandomGreetings', function () {
 
     var getRandomFromArray = function (arr) {
