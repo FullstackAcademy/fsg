@@ -1,0 +1,7 @@
+{
+  "env": {
+    "browser": false,
+    "jquery": false
+  },
+  "globals": {}
+}
