@@ -1,6 +1,6 @@
 {
   "env": {
-    "node": false
+    "browser": true
   },
   "globals": {
     "app": true,
