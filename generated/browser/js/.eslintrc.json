@@ -3,6 +3,7 @@
     "node": false
   },
   "globals": {
-    "app": true
+    "app": true,
+    "_": true
   }
 }
