@@ -1,3 +1,4 @@
+/* global app */
 app.factory('FullstackPics', function () {
     return [
         'https://pbs.twimg.com/media/B7gBXulCAAAXQcE.jpg:large',

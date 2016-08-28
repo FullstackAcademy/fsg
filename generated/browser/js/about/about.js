@@ -1,3 +1,4 @@
+/* global app _ */
 app.config(function ($stateProvider) {
 
     // Register our *about* state.

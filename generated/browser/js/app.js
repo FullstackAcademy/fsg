@@ -1,3 +1,4 @@
+/* global app */
 'use strict';
 window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate']);
 

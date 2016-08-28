@@ -11,7 +11,7 @@ module.exports = function (server) {
     io.on('connection', function () {
         // Now have access to socket, wowzers!
     });
-    
+
     return io;
 
 };

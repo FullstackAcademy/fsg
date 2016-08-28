@@ -1,3 +1,4 @@
+/* global app */
 app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
 
     return {

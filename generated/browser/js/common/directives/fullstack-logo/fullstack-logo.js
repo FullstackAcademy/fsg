@@ -1,3 +1,4 @@
+/* global app */
 app.directive('fullstackLogo', function () {
     return {
         restrict: 'E',
