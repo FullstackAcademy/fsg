@@ -1,0 +1,17 @@
+// http://eslint.org/docs/rules/
+{
+  "extends": "fullstack", // from the `eslint-config-fullstack` npm module,
+  "env": {
+    "es6": true,
+    "node": false,
+    "browser": false,
+    "jquery": false,
+    "mocha": false,
+    "jasmine": false
+  },
+  "rules": {
+    "global-require": 0, // 0 = off, 1 = warn (yellow), 2 = error (red)
+    "camelcase": 0
+    // add more rules here to override the fullstack config
+  }
+}

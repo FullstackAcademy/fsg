@@ -1,5 +1,5 @@
 'use strict';
-var router = require('express').Router();
+var router = require('express').Router(); // eslint-disable-line new-cap
 module.exports = router;
 
 router.use('/members', require('./members'));
