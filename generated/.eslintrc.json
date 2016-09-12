@@ -1,5 +1,6 @@
 // http://eslint.org/docs/rules/
 {
+  "root": true,
   "extends": "fullstack", // from the `eslint-config-fullstack` npm module,
   "env": {
     "es6": true,
