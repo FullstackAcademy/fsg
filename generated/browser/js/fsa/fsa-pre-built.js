@@ -117,7 +117,7 @@
 
         this.user = null;
 
-        this.create = function (sessionId, user) {
+        this.create = function (user) {
             this.user = user;
         };
 

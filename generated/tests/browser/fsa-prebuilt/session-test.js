@@ -18,35 +18,30 @@ describe('Session Service', function () {
         expect(Session).to.be.an('object');
     });
 
-    it('should by default have id and user as null', function () {
+    it('should by default have user as null', function () {
         expect(Session.user).to.be.equal(null);
-        expect(Session.id).to.be.equal(null);
     });
 
     describe('create method', function () {
 
-        it('should when called with id and user arguments' +
-        'set the id and user to session', function () {
-            var id = 'testId';
+        it('should when called with a user argument' +
+        'set the user to session', function () {
             var user = {};
-            Session.create(id, user);
+            Session.create(user);
             expect(Session.user).to.be.equal(user);
-            expect(Session.id).to.be.equal(id);
         });
 
     });
 
     describe('destroy method', function () {
 
-        it('should set user and id to null', function () {
+        it('should set user to null', function () {
 
             Session.user = {};
-            Session.id = 1;
 
             Session.destroy();
 
             expect(Session.user).to.be.equal(null);
-            expect(Session.id).to.be.equal(null);
 
         });
 
