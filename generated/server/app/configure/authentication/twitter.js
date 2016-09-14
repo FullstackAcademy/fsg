@@ -27,7 +27,7 @@ module.exports = function (app, db) {
             where: {
                 twitter_id: profile.id
             }
-        }).exec()
+        })
             .then(function (user) {
                 if (user) { // If a user with this twitter id already exists.
                     return user;
