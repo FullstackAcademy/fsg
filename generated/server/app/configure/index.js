@@ -16,7 +16,9 @@ module.exports = function (app, db) {
 
     // Logging middleware, set as application
     // variable inside of server/app/configure/app-variables.js
-    app.use(app.getValue('log'));
+    if (process.env.NODE_ENV !== 'testing') {
+        app.use(app.getValue('log'));
+    }
 
     require('./authentication')(app, db);
 
