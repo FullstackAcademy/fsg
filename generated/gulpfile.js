@@ -109,6 +109,22 @@ gulp.task('buildCSS', function () {
 // Production tasks
 // --------------------------------------------------------------
 
+gulp.task('lintJSProduction', function () {
+
+    return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
+        .pipe(plumber({
+            errorHandler: notify.onError('Linting FAILED! Check your gulp process.')
+        }))
+        .pipe(eslint({
+            rules: {
+                'no-debugger': 2 // 1 in dev
+            }
+        }))
+        .pipe(eslint.format())
+        .pipe(eslint.failOnError());
+
+});
+
 gulp.task('buildCSSProduction', function () {
     return gulp.src('./browser/scss/main.scss')
         .pipe(sass())
