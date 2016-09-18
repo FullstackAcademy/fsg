@@ -54,11 +54,14 @@ module.exports = function (app, db) {
     // We provide a simple GET /session in order to get session information directly.
     // This is used by the browser application (Angular) to determine if a user is
     // logged in already.
-    app.get('/session', function (req, res) {
+    app.get('/session', function (req, res, next) {
+        var err;
         if (req.user) {
             res.send({ user: req.user.sanitize() });
         } else {
-            res.status(401).send('No authenticated user.');
+            err = new Error('No authenticated user.');
+            err.status = 401;
+            next(err);
         }
     });
 
