@@ -12,8 +12,8 @@ var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var eslint = require('gulp-eslint');
+var karma = require('karma');
 var mocha = require('gulp-spawn-mocha');
-var karma = require('karma').server;
 var istanbul = require('gulp-istanbul');
 var notify = require('gulp-notify');
 
@@ -84,10 +84,11 @@ gulp.task('testServerJSWithCoverage', function (done) {
 gulp.task('testBrowserJS', function (done) {
     //testing environment variable
     process.env.NODE_ENV = 'testing';
-    karma.start({
+    var server = new karma.Server({
         configFile: __dirname + '/tests/browser/karma.conf.js',
         singleRun: true
     }, done);
+    server.start();
 });
 
 gulp.task('buildCSS', function () {
