@@ -22,10 +22,14 @@ module.exports = function (db) {
      */
     app.use(function (req, res, next) {
 
+        var err;
+
         if (path.extname(req.path).length > 0) {
-            res.status(404).end();
+            err = new Error('Not found.');
+            err.status = 404;
+            next(err);
         } else {
-            next(null);
+            next();
         }
 
     });

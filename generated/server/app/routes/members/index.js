@@ -4,10 +4,13 @@ module.exports = router;
 var _ = require('lodash');
 
 var ensureAuthenticated = function (req, res, next) {
+    var err;
     if (req.isAuthenticated()) {
         next();
     } else {
-        res.status(401).end();
+        err = new Error('You must be logged in.');
+        err.status = 401;
+        next(err);
     }
 };
 
