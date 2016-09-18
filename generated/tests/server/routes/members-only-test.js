@@ -45,10 +45,8 @@ describe('Members Route', function () {
 			password: 'shoopdawoop'
 		};
 
-		beforeEach('Create a user', function (done) {
-			return User.create(userInfo).then(function (user) {
-                done();
-            }).catch(done);
+		beforeEach('Create a user', function () {
+			return User.create(userInfo);
 		});
 
 		beforeEach('Create loggedIn user agent and authenticate', function (done) {

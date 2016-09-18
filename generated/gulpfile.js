@@ -12,8 +12,8 @@ var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var eslint = require('gulp-eslint');
-var mocha = require('gulp-mocha');
-var karma = require('karma').server;
+var karma = require('karma');
+var mocha = require('gulp-spawn-mocha');
 var istanbul = require('gulp-istanbul');
 var notify = require('gulp-notify');
 
@@ -84,10 +84,11 @@ gulp.task('testServerJSWithCoverage', function (done) {
 gulp.task('testBrowserJS', function (done) {
     //testing environment variable
     process.env.NODE_ENV = 'testing';
-    karma.start({
+    var server = new karma.Server({
         configFile: __dirname + '/tests/browser/karma.conf.js',
         singleRun: true
     }, done);
+    server.start();
 });
 
 gulp.task('buildCSS', function () {
@@ -108,6 +109,22 @@ gulp.task('buildCSS', function () {
 
 // Production tasks
 // --------------------------------------------------------------
+
+gulp.task('lintJSProduction', function () {
+
+    return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
+        .pipe(plumber({
+            errorHandler: notify.onError('Linting FAILED! Check your gulp process.')
+        }))
+        .pipe(eslint({
+            rules: {
+                'no-debugger': 2 // 1 in dev
+            }
+        }))
+        .pipe(eslint.format())
+        .pipe(eslint.failOnError());
+
+});
 
 gulp.task('buildCSSProduction', function () {
     return gulp.src('./browser/scss/main.scss')
