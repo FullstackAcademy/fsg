@@ -53,6 +53,9 @@ const renderAuthNavItems = (user, dispatch) => {
   if (user) {
     return (
       <Nav pullRight>
+        <NavItem disabled>
+          { user.email }
+        </NavItem>
         <NavItem eventKey={NAV_ITEMS.length} onClick={handleLogout}>
           Logout
         </NavItem>
