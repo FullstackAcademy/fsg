@@ -8,8 +8,11 @@
     "postinstall": "npm run build",
     "build": "webpack --config webpack.dev.config.js",
     "build:production": "NODE_ENV='production' webpack -p --config webpack.prod.config.js",
-    "test": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register **/spec.js",
-    "test:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha --watch --compilers js:babel-register **/spec.js"
+    "testBrowserJS": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register ./client/**/spec.js",
+    "testBrowserJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./client/**/spec.js",
+    "testServerJS": "NODE_ENV='testing' mocha --compilers js:babel-register ./tests/server/**/*.js",
+    "testServerJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./tests/server/**/*.js",
+    "test": "npm run testBrowser && npm run testServer"
   },
   "engines": {
     "node": ">=4.0.0"
