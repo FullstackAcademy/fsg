@@ -11,7 +11,7 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     'babel-polyfill',
-    './client/src/app.js'
+    './browser/app.js'
   ],
   output: {
     path: path.join(__dirname, 'public'),
@@ -20,7 +20,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.css', '.scss'],
-    modulesDirectories: ['client', 'node_modules']
+    modulesDirectories: ['browser', 'node_modules']
   },
   module: {
     loaders: [
@@ -32,7 +32,7 @@ module.exports = {
       {
         test: /\.s?css$/,
         loader: ExtractTextPlugin.extract('style', 'css?-autoprefixer!postcss!sass'),
-        include: /(client)|(node_modules)/
+        include: /(browser)|(node_modules)/
       }
     ]
   },

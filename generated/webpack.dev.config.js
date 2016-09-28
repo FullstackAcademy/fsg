@@ -11,7 +11,7 @@ module.exports = {
   entry: [
     'babel-polyfill',
     'webpack-hot-middleware/client',
-    './client/src/app.js'
+    './browser/app.js'
   ],
   output: {
     path: path.join(__dirname, 'public'),
@@ -20,7 +20,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.css', '.scss'],
-    modulesDirectories: ['client', 'node_modules']
+    modulesDirectories: ['browser', 'node_modules']
   },
   module: {
     preloaders: [
@@ -38,7 +38,7 @@ module.exports = {
       {
         test: /\.s?css$/,
         loader: ExtractTextPlugin.extract('style', 'css?-autoprefixer!postcss!sass?sourceMap'),
-        include: /(client)|(node_modules)/
+        include: /(browser)|(node_modules)/
       }
     ]
   },
