@@ -17,14 +17,14 @@ export default function (mockStore) {
     let store;
 
     beforeEach(() => {
-      store = mockStore({ session: {} });
+      store = mockStore({ auth: {} });
     });
 
     afterEach(() => {
       nock.cleanAll();
     });
 
-    const logoutAPICall = nock(`http://localhost:8080`)
+    const logoutAPICall = nock(`http://localhost:${process.env.PORT || 1337}`)
                           .get('/logout');
 
     it('creates LOGOUT when initially dispatched', () => {

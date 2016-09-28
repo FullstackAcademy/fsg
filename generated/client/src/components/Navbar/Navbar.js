@@ -61,9 +61,6 @@ const renderAuthNavItems = (user, dispatch) => {
   } else {
     return (
       <Nav pullRight>
-        <LinkContainer to='signup'>
-          <NavItem>Sign Up</NavItem>
-        </LinkContainer>
         <LinkContainer to='login'>
           <NavItem>Login</NavItem>
         </LinkContainer>

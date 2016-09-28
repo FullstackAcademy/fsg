@@ -8,13 +8,12 @@ export default function (mockStore) {
     let store;
 
     it('returns true if session has been loaded', () => {
-      store = mockStore({ session: { loaded: true }});
-      console.log('STORE:', store);
+      store = mockStore({ auth: { loaded: true }});
       expect(isLoaded(store.getState())).to.be.true;
     });
 
     it('returns false if session has not been loaded', () => {
-      store = mockStore({ session: { loaded: false }});
+      store = mockStore({ auth: { loaded: false }});
       expect(isLoaded(store.getState())).to.be.false;
     });
   });

@@ -3,9 +3,10 @@
 import axios from 'axios';
 import { parseJSON, parseData } from '../../utils';
 
-const BASE_URL = process.env.URL | 'http://localhost:1337';
+const BASE_URL = process.env.URL || `http://localhost:${process.env.PORT || 1337}`;
 
 export const fetchSession = () => {
+  console.log(BASE_URL);
   return axios.get(`${BASE_URL}/session`).then(parseData);
 }
 

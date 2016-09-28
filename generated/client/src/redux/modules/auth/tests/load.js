@@ -17,14 +17,14 @@ export default function (mockStore) {
     let store;
 
     beforeEach(() => {
-      store = mockStore({ session: {} });
+      store = mockStore({ auth: {} });
     });
 
     afterEach(() => {
       nock.cleanAll();
     });
 
-    const sessionAPICall = nock(`http://localhost:8080`)
+    const sessionAPICall = nock(`http://localhost:${process.env.PORT || 1337}`)
                           .get('/session');
 
     it('creates LOAD when initially dispatched', () => {
@@ -42,6 +42,7 @@ export default function (mockStore) {
 
       return store.dispatch(load())
         .then(() => {
+          console.log(store.getActions());
           const actions = store.getActions().filter(action => {
             return action.result && action.type === LOAD_SUCCESS
           });

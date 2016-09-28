@@ -17,14 +17,14 @@ export default function (mockStore) {
     let store;
 
     beforeEach(() => {
-      store = mockStore({ session: {} });
+      store = mockStore({ auth: {} });
     })
 
     afterEach(() => {
       nock.cleanAll();
     })
 
-    const loginAPICall = () => nock(`http://localhost:8080`)
+    const loginAPICall = () => nock(`http://localhost:${process.env.PORT || 1337}`)
                                .post('/login', credentials);
 
     it('creates LOGIN when initially dispatched', () => {
