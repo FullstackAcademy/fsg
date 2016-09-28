@@ -12,7 +12,7 @@
     "testBrowserJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./client/**/spec.js",
     "testServerJS": "NODE_ENV='testing' mocha --compilers js:babel-register ./tests/server/**/*.js",
     "testServerJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./tests/server/**/*.js",
-    "test": "npm run testBrowser && npm run testServer"
+    "test": "npm run testBrowserJS && npm run testServerJS"
   },
   "engines": {
     "node": ">=4.0.0"
