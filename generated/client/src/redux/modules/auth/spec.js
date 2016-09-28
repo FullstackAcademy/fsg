@@ -26,9 +26,6 @@ describe('MODULE - auth:', () => {
     // logout action tests
     test.logout(mockStore);
 
-    // signup action test
-    test.signup(mockStore);
-
   });
 
   describe('REDUCER', () => {
@@ -44,9 +41,6 @@ describe('MODULE - auth:', () => {
     describe('handles actions', () => {
       // LOAD action tests
       test.loadActions();
-
-      // SIGNUP action tests
-      test.signupActions();
 
       // LOGIN action tests
       test.loginActions();

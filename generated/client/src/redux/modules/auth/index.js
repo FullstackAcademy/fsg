@@ -12,9 +12,6 @@ export const LOGIN_FAILURE  = 'LOGIN_FAILURE';
 export const LOGOUT         = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
-export const SIGNUP         = 'SIGNUP';
-export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
-export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 export function isLoaded (globalState) {
   return globalState.auth && globalState.auth.loaded
@@ -38,13 +35,6 @@ export const load = () => (dispatch, getState) => {
           error: error.message || `An error occured`
         })
       });
-  }
-}
-
-export function signup (credentials) {
-  return {
-    types: [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE],
-    promise: auth.trySignup(credentials)
   }
 }
 
@@ -74,7 +64,6 @@ export default function reducer (state = initialState, action) {
         loading: true,
         loadError: null
       }
-    case SIGNUP:
     case LOGIN:
     case LOGOUT:
       return {
@@ -83,7 +72,6 @@ export default function reducer (state = initialState, action) {
         error: null
       }
     case LOAD_SUCCESS:
-    case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -104,7 +92,6 @@ export default function reducer (state = initialState, action) {
         loading: false,
         loadError: action.error.response
       }
-    case SIGNUP_FAILURE:
     case LOGIN_FAILURE:
     case LOGOUT_FAILURE:
       return {

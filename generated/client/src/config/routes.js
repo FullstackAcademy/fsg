@@ -1,23 +1,22 @@
 'use strict';
 
 import React from 'react';
-import Promise from 'bluebird';
 import { Route, IndexRoute } from 'react-router';
 import {
   isLoaded as isAuthLoaded,
   load as loadAuth
-} from './redux/modules/auth';
-import { About, Docs, Home, MembersOnly } from './components';
-import { Layout, Login, Signup } from './containers';
-import { NotFound } from './common';
+} from '../redux/modules/auth';
+import { About, Docs, Home, MembersOnly } from '../components';
+import { Layout, Login } from '../containers';
+import { NotFound } from '../common';
 
 const getRoutes = (store) => {
   const getAuth = (nextState, replace, next) => {
     if (!isAuthLoaded(store.getState())) {
       store.dispatch(loadAuth())
-      .then(() => next())
+      .then(() => next());
     } else {
-      next()
+      next();
     }
   }
 
@@ -67,7 +66,6 @@ const getRoutes = (store) => {
       { /* Unauthenticated Routes Only */ }
       <Route onEnter={requireNoUser}>
         <Route path='login' component={Login} />
-        <Route path='signup' component={Signup} />
       </Route>
 
       { /* Routes */ }

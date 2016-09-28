@@ -3,14 +3,10 @@
 import axios from 'axios';
 import { parseJSON, parseData } from '../../utils';
 
-const BASE_URL = process.env.URL || 'http://localhost:8080';
+const BASE_URL = process.env.URL | 'http://localhost:1337';
 
 export const fetchSession = () => {
   return axios.get(`${BASE_URL}/session`).then(parseData);
-}
-
-export const trySignup = (credentials) => {
-  return axios.post(`${BASE_URL}/signup`, credentials);
 }
 
 export const tryLogin = (credentials) => {
@@ -23,7 +19,6 @@ export const tryLogout = () => {
 
 const auth = {
   fetchSession,
-  trySignup,
   tryLogin,
   tryLogout
 }
