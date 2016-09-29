@@ -8,11 +8,12 @@
     "postinstall": "npm run build",
     "build": "webpack --config webpack.dev.config.js",
     "build:production": "NODE_ENV='production' webpack -p --config webpack.prod.config.js",
-    "testBrowserJS": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register ./browser/**/spec.js",
-    "testBrowserJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./browser/**/spec.js",
-    "testServerJS": "NODE_ENV='testing' mocha --compilers js:babel-register ./tests/server/**/*.js",
-    "testServerJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./tests/server/**/*.js",
-    "test": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register ./browser/**/*.test.js"
+    "testBrowserJS": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register ./browser/**/*.test.js",
+    "testBrowserJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./browser/**/*.test.js",
+    "testServerJS": "NODE_ENV='testing' mocha --compilers js:babel-register ./server/**/*.test.js",
+    "testServerJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./server**/*.test.js",
+    "test": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register ./browser/**/*.test.js ./server/**/*.test.js",
+    "cover": "nyc --reporter=lcov --reporter=text --reporter=html --require babel-register npm test"
   },
   "engines": {
     "node": ">=4.0.0"

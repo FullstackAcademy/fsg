@@ -5,7 +5,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import promise from '../../middleware/promise';
 import reducer from '../auth';
-import * as test from './test';
+import * as test from './tests';
 
 const middlewares = [ thunk, promise ];
 const mockStore = configureMockStore(middlewares);
