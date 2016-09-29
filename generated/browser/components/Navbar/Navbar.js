@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import { Navbar, Nav, NavItem, Button } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import { logout } from '../../redux/modules/auth';
-import Logo from '../../common/Logo';
+import Logo from '../../shared/Logo';
 import './_Navbar';
 
 const NAV_ITEMS = [

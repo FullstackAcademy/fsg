@@ -8,21 +8,16 @@
     "postinstall": "npm run build",
     "build": "webpack --config webpack.dev.config.js",
     "build:production": "NODE_ENV='production' webpack -p --config webpack.prod.config.js",
-    "testBrowserJS": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register ./client/**/spec.js",
-    "testBrowserJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./client/**/spec.js",
+    "testBrowserJS": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register ./browser/**/spec.js",
+    "testBrowserJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./browser/**/spec.js",
     "testServerJS": "NODE_ENV='testing' mocha --compilers js:babel-register ./tests/server/**/*.js",
     "testServerJS:watch": "NODE_ENV='testing' ./node_modules/.bin/mocha -w --compilers js:babel-register ./tests/server/**/*.js",
-    "test": "npm run testBrowserJS && npm run testServerJS"
+    "test": "NODE_ENV='testing' ./node_modules/.bin/mocha --compilers js:babel-register ./browser/**/*.test.js"
   },
   "engines": {
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "angular": "^1.5.0-beta.0",
-    "angular-animate": "^1.4.7",
-    "angular-mocks": "^1.4.0",
-    "angular-ui-bootstrap": "^0.14.3",
-    "angular-ui-router": "^0.2.15",
     "autoprefixer": "^6.5.0",
     "axios": "^0.14.0",
     "babel-eslint": "^7.0.0",
@@ -75,6 +70,7 @@
     "nock": "^8.0.0",
     "node-sass": "^3.10.0",
     "nodemon": "^1.3.7",
+    "nyc": "^8.3.0",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
     "passport-google-oauth": "^0.1.5",

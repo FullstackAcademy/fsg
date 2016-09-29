@@ -42,7 +42,6 @@ export default function (mockStore) {
 
       return store.dispatch(load())
         .then(() => {
-          console.log(store.getActions());
           const actions = store.getActions().filter(action => {
             return action.result && action.type === LOAD_SUCCESS
           });

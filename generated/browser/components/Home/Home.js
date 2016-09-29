@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import Logo from '../../common/Logo';
+import Logo from '../../shared/Logo';
 import getRandomGreeting from '../../resources/RandomGreetings';
 import './_Home';
 

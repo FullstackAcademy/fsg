@@ -8,7 +8,7 @@ import {
 } from '../redux/modules/auth';
 import { About, Docs, Home, MembersOnly } from '../components';
 import { Layout, Login } from '../containers';
-import { NotFound } from '../common';
+import { NotFound } from '../shared';
 
 const getRoutes = (store) => {
   const getAuth = (nextState, replace, next) => {
