@@ -1,11 +1,12 @@
-'use strict'
+'use strict';
 
-const path = require('path')
-const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
-const precss = require('precss')
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const precss = require('precss');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const indexPath = path.join(__dirname, './server', 'app', 'views', 'index.html');
 
 module.exports = {
   devtool: 'source-map',
@@ -14,7 +15,7 @@ module.exports = {
     './browser/app.js'
   ],
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
     publicPath: '/'
   },
@@ -40,22 +41,22 @@ module.exports = {
     return [autoprefixer, precss]
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   inject: true,
-    //   template: indexPath,
-    //   minify: {
-    //     removeComments: true,
-    //     collapseWhitespace: true,
-    //     removeRedundantAttributes: true,
-    //     useShortDoctype: true,
-    //     removeEmptyAttributes: true,
-    //     removeStyleLinkTypeAttributes: true,
-    //     keepClosingSlash: true,
-    //     minifyJS: true,
-    //     minifyCSS: true,
-    //     minifyURLs: true
-    //   }
-    // }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: indexPath,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),

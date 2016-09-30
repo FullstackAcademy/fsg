@@ -2,6 +2,7 @@
 generated/node_modules
 generated/bower_components
 generated/public
+generated/build
 node_modules
 bower_components
 npm-debug.log

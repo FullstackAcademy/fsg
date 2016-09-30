@@ -4,7 +4,9 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const indexPath = path.join(__dirname, './server', 'app', 'views', 'index.html');
 
 module.exports = {
   devtool: 'eval',
@@ -14,7 +16,7 @@ module.exports = {
     './browser/app.js'
   ],
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
     publicPath: '/'
   },
@@ -46,6 +48,10 @@ module.exports = {
     return [autoprefixer, precss]
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: indexPath
+    }),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
