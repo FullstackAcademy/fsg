@@ -1,16 +1,18 @@
 'use strict';
 window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate']);
 
-app.config(function ($urlRouterProvider, $locationProvider) {
-    // This turns off hashbang urls (/#about) and changes it to something normal (/about)
-    $locationProvider.html5Mode(true);
-    // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
-    $urlRouterProvider.otherwise('/');
-    // Trigger page refresh when accessing an OAuth route
-    $urlRouterProvider.when('/auth/:provider', function () {
-        window.location.reload();
+if (!window.KARMA_TESTING) {
+    app.config(function ($urlRouterProvider, $locationProvider) {
+        // This turns off hashbang urls (/#about) and changes it to something normal (/about)
+        $locationProvider.html5Mode(true);
+        // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
+        $urlRouterProvider.otherwise('/');
+        // Trigger page refresh when accessing an OAuth route
+        $urlRouterProvider.when('/auth/:provider', function () {
+            window.location.reload();
+        });
     });
-});
+}
 
 // This app.run is for listening to errors broadcasted by ui-router, usually originating from resolves
 app.run(function ($rootScope) {
