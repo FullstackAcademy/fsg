@@ -52,7 +52,7 @@
 
         function onSuccessfulLogin(response) {
             var user = response.data.user;
-            Session.create(user);
+            Session.create(null, user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return user;
         }
