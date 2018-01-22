@@ -1,0 +1,32 @@
+$red: #ed1b24;
+$inverse: #222;
+$default: #efefef;
+
+.navbar {
+  background-color: white;
+
+  .logo {
+    margin-top: 10px;
+    width: 30px;
+  }
+
+  .navbar-nav>.active>a,
+  .navbar-nav>li>a {
+    padding: 0;
+    margin: 15px;
+  }
+
+  .navbar-nav>.active>a,
+  .navbar-nav>.active>a:focus,
+  .navbar-nav>.active>a:hover,
+  .navbar-nav>li>a:focus,
+  .navbar-nav>li>a:hover {
+    color: $red;
+    background-color: transparent;
+  }
+
+  .navbar-nav>.active>a {
+    background-color: transparent;
+  }
+
+}

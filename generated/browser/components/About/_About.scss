@@ -1,0 +1,35 @@
+#about {
+
+  text-align: center;
+
+  p {
+    width: 40%;
+    margin: 0 auto;
+    text-align: justify;
+    font-size: 22px;
+    font-weight: 300;
+    float: left;
+  }
+
+  .carousel {
+    float: right;
+    width: 55%;
+    overflow: hidden;
+    margin: 0 auto;
+
+    .carousel-inner {
+      height: 500px !important;
+
+      img {
+        max-width: 100%;
+        max-height: 500px;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .carousel-control.left, .carousel-control.right {
+    background-image: none;
+  }
+}

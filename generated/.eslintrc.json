@@ -2,6 +2,10 @@
 {
   "root": true,
   "extends": "fullstack", // from the `eslint-config-fullstack` npm module,
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "env": {
     "es6": true,
     "node": false,
@@ -13,7 +17,8 @@
   "rules": {
     "global-require": 0, // 0 = off, 1 = warn (yellow), 2 = error (red)
     "camelcase": 0,
-    "no-debugger": 1
+    "no-debugger": 1,
+    "no-unused-expressions": 1
     // add more rules here to override the fullstack config
   }
 }
